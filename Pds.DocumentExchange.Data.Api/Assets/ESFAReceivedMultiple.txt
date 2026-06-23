@@ -1,0 +1,9 @@
+<h1>You have [DocumentCount] new documents to review</h1>
+
+<p>You have [DocumentCount] new documents:</p>
+
+<p>[DocumentListUL]</p>
+ 
+<h2>Review your new documents.</h2>
+
+<p>If you need any help, email [ReplyEmail].</p>

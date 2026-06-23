@@ -1,0 +1,5 @@
+<h1>You have a new document to review</h1>
+
+<p>You have a new document: '[DocumentName]'. Review your new document.</p>
+
+<p>If you need any help, email [ReplyEmail].</p>

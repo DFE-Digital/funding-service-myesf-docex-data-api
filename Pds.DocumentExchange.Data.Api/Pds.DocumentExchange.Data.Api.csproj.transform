@@ -1,0 +1,7 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web"  xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">  
+  
+  <PropertyGroup xdt:Transform="InsertIfMissing">
+    <TreatWarningsAsErrors   xdt:Transform="InsertIfMissing" >true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  
+</Project>

@@ -1,0 +1,13 @@
+<h1>We've received your document</h1>
+
+<p>We've received one document for [ProviderName]: '[DocumentName]'.</p>
+
+<p>Time and date sent: [SendDateTime].</p>
+
+<h2>What happens next</h2>
+
+<p>Your document will show on <a href="[BaseUrl]/document-exchange/sent">the list of documents you’ve sent to ESFA</a>. This could take a few minutes.</p>
+
+<p>You can also <a href="[BaseUrl]/document-exchange/upload">send another document</a>.</p>
+
+<p>If you need any help, email [ReplyEmail].</p>

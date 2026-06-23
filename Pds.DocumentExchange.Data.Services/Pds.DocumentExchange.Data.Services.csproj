@@ -1,0 +1,147 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>NU1901;NU1902;NU1903;NU1904;S1135</WarningsNotAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Implementations\CosmosDb\Queries\GetAgencyDeleteFilesInfo.sql" />
+    <None Remove="Implementations\CosmosDb\Queries\GetFile.sql" />
+    <None Remove="Implementations\CosmosDb\Queries\GetOrganisationDeleteFilesInfo.sql" />
+    <None Remove="Implementations\CosmosDb\Queries\GetSpiRefreshLogs.sql" />
+    <None Remove="Implementations\CosmosDb\Queries\GetUkprnRangeOutcomes.sql" />
+    <None Remove="Implementations\CosmosDb\Queries\MetadataOfDocumentsReceivedByOrganisations.sql" />
+    <None Remove="Implementations\CosmosDb\Queries\MetadataOfDocumentsSentByOrganisations.sql" />
+    <None Remove="Implementations\CosmosDb\Queries\ReceivedFilesForAgencyWithSeenHistory.sql" />
+    <None Remove="Implementations\CosmosDb\StoredProcedures\GetNotificationRecipientsByParentBatch.js" />
+    <None Remove="Implementations\CosmosDb\StoredProcedures\GetPublishedBatches.js" />
+    <None Remove="Implementations\CosmosDb\StoredProcedures\UpdateDocumentMetadataAndVersion.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Implementations\CosmosDb\Queries\GetUkprnRangeOutcomes.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implementations\CosmosDb\Queries\GetSpiRefreshLogs.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implementations\CosmosDb\Queries\GetAgencyDeleteFilesInfo.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implementations\CosmosDb\Queries\GetOrganisationDeleteFilesInfo.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implementations\CosmosDb\Queries\ReceivedFilesForAgencyWithSeenHistory.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implementations\CosmosDb\Queries\GetFile.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implementations\CosmosDb\Queries\MetadataOfDocumentsSentByOrganisations.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implementations\CosmosDb\Queries\MetadataOfDocumentsReceivedByOrganisations.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implementations\CosmosDb\StoredProcedures\GetNotificationRecipientsByParentBatch.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implementations\CosmosDb\StoredProcedures\GetPublishedBatches.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Implementations\CosmosDb\StoredProcedures\addHistoryToFileMetadata.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implementations\CosmosDb\StoredProcedures\AddOrUpdateListConfiguration.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implementations\CosmosDb\StoredProcedures\getBatchesByParent.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implementations\CosmosDb\StoredProcedures\GetListConfiguration.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implementations\CosmosDb\StoredProcedures\GetConfiguration.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implementations\CosmosDb\StoredProcedures\getCountOfUnprocessedFiles.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implementations\CosmosDb\StoredProcedures\getCurrentVersionNumber.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implementations\CosmosDb\StoredProcedures\getReportOfDocumentsViewed.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implementations\CosmosDb\StoredProcedures\getReportOfDocumentsViewedSummary.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implementations\CosmosDb\StoredProcedures\getReportOfFileScanBad.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implementations\CosmosDb\StoredProcedures\getReportOfFilesSentFromAgency.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implementations\CosmosDb\StoredProcedures\getReportOfInitialUploadErrors.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implementations\CosmosDb\StoredProcedures\tryAndSetAnExclusiveEmailLockIdOnTheBatches.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implementations\CosmosDb\StoredProcedures\UpdateConfiguration.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implementations\CosmosDb\StoredProcedures\updateDocumentMetadata.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implementations\CosmosDb\StoredProcedures\getReportOfExternalUploads.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Implementations\CosmosDb\StoredProcedures\UpdateDocumentMetadataAndVersion.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="BouncyCastle.NetCore" Version="1.8.8" />
+    <PackageReference Include="CsvHelper" Version="32.0.3" />
+    <PackageReference Include="FreeDataExports" Version="1.1.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
+    <PackageReference Include="Microsoft.Azure.ServiceBus" Version="5.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />
+    <PackageReference Include="nClam" Version="8.0.0" />
+    <PackageReference Include="Pds.Core.BulkJobs" Version="4.0.0" />
+    <PackageReference Include="Pds.Core.Common" Version="2.0.0" />
+    <PackageReference Include="Pds.Core.DfESignIn.ImplicitFlow" Version="5.0.2" />
+    <PackageReference Include="Pds.Core.Notification" Version="2.1.0" />
+    <PackageReference Include="Pds.Core.Caching" Version="4.0.0" />
+    <PackageReference Include="Pds.Core.DistributedLocks" Version="2.0.0" />
+    <PackageReference Include="System.Linq.Async" Version="6.0.3" />
+    <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
+	<PackageReference Include="SonarAnalyzer.CSharp" Version="8.18.0.27296">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Pds.Core.CodeAnalysis.StyleCop" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+    <PackageReference Include="Pds.Services.Common" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Pds.DocumentExchange.Data.Core\Pds.DocumentExchange.Data.Core.csproj" />
+    <ProjectReference Include="..\Pds.DocumentExchange.Data.Repository\Pds.DocumentExchange.Data.Repository.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Implementations\Factories\" />
+	<Folder Include="Exceptions\" />
+    <Folder Include="DTOs\BatchAnalysis\" />
+  </ItemGroup>
+</Project>

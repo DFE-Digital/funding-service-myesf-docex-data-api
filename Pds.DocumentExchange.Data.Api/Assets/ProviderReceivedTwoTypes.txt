@@ -1,0 +1,4 @@
+<h1>You have [NumberOfDocuments] new documents</h1>
+<p>[DocumentTypeDetails]</p>
+<p>To view or download the documents sign into the Document Exchange at</p>
+<p><a href="[BaseUrl]/document-exchange/received-documents">[BaseUrl]/document-exchange/received-documents</a></p>

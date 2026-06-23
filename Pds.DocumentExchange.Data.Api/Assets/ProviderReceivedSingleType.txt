@@ -1,0 +1,3 @@
+<h1>[DocumentTypeDetails]</h1>
+<p>To view or download the document, sign into the Document Exchange at</p>
+<p><a href="[BaseUrl]/document-exchange/received-documents">[BaseUrl]/document-exchange/received-documents</a></p>

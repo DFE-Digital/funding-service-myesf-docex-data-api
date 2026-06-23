@@ -1,0 +1,15 @@
+<h1>There's a problem with your document</h1>
+
+<p>We could not publish your document '[DocumentName]' because it has a virus.</p>
+
+<p>We've removed this document from your file share and document exchange.</p>
+
+<h2>What happens next</h2>
+
+<ul>
+    <li>You need to fix the virus or create a new copy of your document.</li>
+    <li>Add your document to the file share.</li>
+    <li>Publish your document.</li>
+</ul>
+
+<p>If you need any help, email [ReplyEmail] or <a href='https://dfe.service-now.com/serviceportal'>report a problem on the service portal</a>.</p>

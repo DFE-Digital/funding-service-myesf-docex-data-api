@@ -1,0 +1,4 @@
+<h1>You published [DocumentTypes] on [SendDate].</h1>
+
+<p>If you need any help, email [ReplyEmail] or report a problem
+on the service portal at <a href='https://dfe.service-now.com/serviceportal'>https://dfe.service-now.com/serviceportal</a></p>

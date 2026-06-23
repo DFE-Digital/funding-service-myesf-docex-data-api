@@ -1,0 +1,13 @@
+<h1>There's a problem with your document</h1>
+
+<p>We did not receive your document '[DocumentName]' because it has a virus.</p>
+
+<p>Time and date sent: [SendDateTime].</p>
+
+<h2>What happens next</h2>
+
+<p>You need to fix the virus.</p>
+
+<p>Send your document again.</p>
+
+<p>If you need any help, email [ReplyEmail].</p>

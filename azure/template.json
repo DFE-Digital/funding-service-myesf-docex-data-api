@@ -1,0 +1,820 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"resourceEnvironmentName": {
+			"type": "string",
+			"metadata": {
+				"description": "Short name of the environment. Used for the name of resources created."
+			}
+		},
+		"serviceName": {
+			"type": "string",
+			"metadata": {
+				"description": "Short name of the service. Used for the name of resources created."
+			}
+		},
+		"ASPNETCORE_ENVIRONMENT": {
+			"type": "string"
+		},
+		"aspSize": {
+			"type": "string",
+			"defaultValue": "1"
+		},
+		"aspInstances": {
+			"type": "int",
+			"defaultValue": 1
+		},
+		"sharedResourceGroupName": {
+			"type": "string"
+		},
+		"sharedPDSResourceGroupName": {
+			"type": "string"
+		},
+		"sharedAppInsightsName": {
+			"type": "string"
+		},
+		"AppInsightsLogLevel": {
+			"type": "string"
+		},
+		"LogLevel": {
+			"type": "string"
+		},
+		"sharedCosmosDbName": {
+			"type": "string"
+		},
+		"sharedServiceBusName": {
+			"type": "string"
+		},
+		"servicebusAccessKeyName": {
+			"type": "string",
+			"defaultValue": "RootManagedAccessKey"
+		},
+		"sharedCosmosEncryptionKey": {
+			"type": "string"
+		},
+		"iexBlobStorageAccountName": {
+			"type": "string"
+		},
+		"pdsiexextuploadAccountName": {
+			"type": "string"
+		},
+		"pdsiexintAccountName": {
+			"type": "string"
+		},
+		"agencyServiceBaseURL": {
+			"type": "string"
+		},
+		"authenticationTenantId": {
+			"type": "string"
+		},
+		"authenticationClientId": {
+			"type": "string"
+		},
+		"externalEmailQueueConnectionString": {
+			"type": "securestring"
+		},
+		"sharedRedisCacheName": {
+			"type": "string"
+		},
+		"documentListCacheTimeMinutes": {
+			"type": "int",
+			"defaultValue": 1
+		},
+		"allOrganisationsMemoryCacheTimeMinutes": {
+			"type": "int",
+			"defaultValue": 60
+		},
+		"documentValidationCacheTimeMinutes": {
+			"type": "int",
+			"defaultValue": 1
+		},
+		"AverageResponseTimeAlertThreshhold": {
+			"type": "string",
+			"defaultValue": "2"
+		},
+		"HttpServerErrorAlertThreshhold": {
+			"type": "string",
+			"defaultValue": "50"
+		},
+		"RequestCountAlertThreshhold": {
+			"type": "string",
+			"defaultValue": "1000"
+		},
+		"ActionGroupName": {
+			"type": "string",
+			"defaultValue": ""
+		},
+		"CPUPercentageAlertThreshhold": {
+			"type": "string",
+			"defaultValue": "75"
+		},
+		"MemoryPercentageAlertThreshhold": {
+			"type": "string",
+			"defaultValue": "75"
+		},
+		"populatorAuthenticationTenantId": {
+			"type": "string"
+		},
+		"populatorAuthenticationClientId": {
+			"type": "string"
+		},
+		"hostingPlanMinAutoscaleInstances": {
+			"type": "int",
+			"defaultValue": 2
+		},
+		"hostingPlanMaxAutoscaleInstances": {
+			"type": "int",
+			"defaultValue": 4
+		},
+		"hostingPlanScaleUpCpuThreshhold": {
+			"type": "int",
+			"defaultValue": 60
+		},
+		"hostingPlanScaleDownCpuThreshhold": {
+			"type": "int",
+			"defaultValue": 40
+		},
+		"hostingPlanScaleUpMemThreshhold": {
+			"type": "int",
+			"defaultValue": 80
+		},
+		"hostingPlanScaleDownMemThreshhold": {
+			"type": "int",
+			"defaultValue": 50
+		},
+		"useDfeSignInContactsApi": {
+			"type": "bool",
+			"defaultValue": false
+		},
+		"redisDatabaseNumber": {
+			"type": "string",
+			"defaultValue": "0"
+		},
+		"healthCheckPath": {
+			"type": "string",
+			"defaultValue": "/ping"
+		},
+		"redisConnectTimeoutInMs": {
+			"type": "int",
+			"defaultValue": 30000
+		},
+		"redisSyncTimeoutInMs": {
+			"type": "int",
+			"defaultValue": 30000
+		},
+		"redisAsyncTimeoutInMs": {
+			"type": "int",
+			"defaultValue": 30000
+		},
+		"notifyQueueName": {
+			"type": "string",
+			"defaultValue": "pds-shared-emailprocessor"
+		},
+		"windowsDefenderAVUrl": {
+			"type": "string",
+			"defaultValue": "http://20.160.82.102:3312/scan/?filename="
+		},
+		"fdsApiUrl": {
+			"type": "string"
+		},
+		"sharedKeyVaultName": {
+			"type": "string",
+			"metadata": {
+				"description": "The name of the key vault where the secrets are stored"
+			}
+		},
+		"DfESigninPublicApiUrl": {
+			"type": "string"
+		},
+		"DfESigninPublicApiClientID": {
+			"type": "string",
+			"defaultValue": "MyesfDocumentExchange"
+		},
+		"DfESigninPublicApiTokenIssuer": {
+			"type": "string",
+			"defaultValue": "MyesfDocumentExchange"
+		}
+	},
+	"variables": {
+		"deploymentUrlBase": "https://raw.githubusercontent.com/SkillsFundingAgency/funding-platform-building-blocks/master/templates/",
+		"resourceNamePrefix": "[toLower(concat('pds-', parameters('resourceEnvironmentName'),'-', parameters('serviceName')))]",
+		"appServiceName": "[concat(variables('resourceNamePrefix'), 'api-as')]",
+		"appServicePlanName": "[concat(variables('resourceNamePrefix'), 'api-asp')]",
+		"pdsiexcosmos": "[resourceId(parameters('sharedPDSResourceGroupName'), 'Microsoft.Storage/storageAccounts', parameters('iexBlobStorageAccountName'))]",
+		"pdsiexextupload": "[resourceId(parameters('sharedPDSResourceGroupName'), 'Microsoft.Storage/storageAccounts', parameters('pdsiexextuploadAccountName'))]",
+		"pdsiexint": "[resourceId(parameters('sharedPDSResourceGroupName'), 'Microsoft.Storage/storageAccounts', parameters('pdsiexintAccountName'))]",
+		"populatorAppServiceName": "[concat(variables('resourceNamePrefix'), 'pop-as')]",
+		"serviceBusQueueNames": [
+			"virusscanrequired",
+			"virusscangood",
+			"virusscanbad",
+			"readyforemail"
+		],
+		"EnableAlertsAndMetrics": "[equals(parameters('resourceEnvironmentName'), 'release')]",
+		"AppServiceMetricsToAlertUpon": [
+			{
+				"MetricName": "Http5xx",
+				"Operator": "GreaterThanOrEqual",
+				"Threshold": "[parameters('HttpServerErrorAlertThreshhold')]",
+				"TimeWindow": "PT5M",
+				"Aggregation": "Total"
+			},
+			{
+				"MetricName": "AverageResponseTime",
+				"Operator": "GreaterThanOrEqual",
+				"Threshold": "[parameters('AverageResponseTimeAlertThreshhold')]",
+				"TimeWindow": "PT5M",
+				"Aggregation": "Average"
+			},
+			{
+				"MetricName": "Requests",
+				"Operator": "GreaterThanOrEqual",
+				"Threshold": "[parameters('RequestCountAlertThreshhold')]",
+				"TimeWindow": "PT5M",
+				"Aggregation": "Average"
+			}
+		],
+		"AppServicePlanMetricsToAlertUpon": [
+			{
+				"MetricName": "CpuPercentage",
+				"Operator": "GreaterThanOrEqual",
+				"Threshold": "[parameters('CPUPercentageAlertThreshhold')]",
+				"TimeWindow": "PT5M",
+				"Aggregation": "Average"
+			},
+			{
+				"MetricName": "MemoryPercentage",
+				"Operator": "GreaterThanOrEqual",
+				"Threshold": "[parameters('MemoryPercentageAlertThreshhold')]",
+				"TimeWindow": "PT5M",
+				"Aggregation": "Average"
+			}
+		]
+	},
+	"resources": [
+		{
+			"apiVersion": "2017-05-10",
+			"name": "[concat('servic-bus-queue', variables('serviceBusQueueNames')[copyIndex()])]",
+			"type": "Microsoft.Resources/deployments",
+			"resourceGroup": "[parameters('sharedResourceGroupName')]",
+			"copy": {
+				"name": "queue-copy",
+				"count": "[length(variables('serviceBusQueueNames'))]",
+				"mode": "Serial"
+			},
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "[concat(variables('deploymentUrlBase'),'service-bus-queue.json')]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"serviceBusNamespaceName": {
+						"value": "[parameters('sharedServiceBusName')]"
+					},
+					"queueName": {
+						"value": "[variables('serviceBusQueueNames')[copyIndex()]]"
+					}
+				}
+			}
+		},
+		{
+			"apiVersion": "2017-05-10",
+			"name": "app-service-plan",
+			"type": "Microsoft.Resources/deployments",
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "[concat(variables('deploymentUrlBase'),'app-service-plan.json')]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"appServicePlanName": {
+						"value": "[variables('appServicePlanName')]"
+					},
+					"aspSize": {
+						"value": "[parameters('aspSize')]"
+					},
+					"aspInstances": {
+						"value": "[parameters('aspInstances')]"
+					}
+				}
+			}
+		},
+		{
+			"apiVersion": "2017-05-10",
+			"name": "app-service",
+			"type": "Microsoft.Resources/deployments",
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "[concat(variables('deploymentUrlBase'),'app-service.json')]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"appServiceName": {
+						"value": "[variables('appServiceName')]"
+					},
+					"appServicePlanName": {
+						"value": "[variables('appServicePlanName')]"
+					},
+					"appServicePlanResourceGroup": {
+						"value": "[resourceGroup().name]"
+					},
+					"healthCheckPath": {
+						"value": "[parameters('healthCheckPath')]"
+					},
+					"appServiceAppSettings": {
+						"value": [
+							{
+								"name": "ASPNETCORE_ENVIRONMENT",
+								"value": "[parameters('ASPNETCORE_ENVIRONMENT')]"
+							},
+							{
+								"name": "PdsApplicationInsights:InstrumentationKey",
+								"value": "[reference(resourceId(parameters('sharedResourceGroupName'), 'microsoft.insights/components', parameters('sharedAppInsightsName')),'2015-05-01').InstrumentationKey]"
+							},
+							{
+								"name": "PdsApplicationInsights:Environment",
+								"value": "[parameters('resourceEnvironmentName')]"
+							},
+							{
+								"name": "Logging:ApplicationInsights:Loglevel:Default",
+								"value": "[parameters('AppInsightsLogLevel')]"
+							},
+							{
+								"name": "Logging:ApplicationInsights:Loglevel:Microsoft",
+								"value": "Error"
+							},
+							{
+								"name": "Logging:LogLevel:Default",
+								"value": "[parameters('LogLevel')]"
+							},
+							{
+								"name": "AzureCosmosDb:ServiceEndpoint",
+								"value": "[concat('https://', parameters('sharedCosmosDbName'), '.documents.azure.com')]"
+							},
+							{
+								"name": "AzureCosmosDb:AuthKeyOrResourceToken",
+								"value": "[listKeys(resourceId(parameters('sharedPDSResourceGroupName'),'Microsoft.DocumentDB/databaseAccounts', parameters('sharedCosmosDbName')), '2015-04-08').primaryMasterKey]"
+							},
+							{
+								"name": "DocumentExchangeServices:ServiceBusQueueManager:ConnectionString",
+								"value": "[concat('Endpoint=sb://', parameters('sharedServiceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', parameters('serviceBusAccessKeyName'), ';SharedAccessKey=',listKeys(resourceId(parameters('sharedResourceGroupName'),'Microsoft.ServiceBus/namespaces/AuthorizationRules',parameters('sharedServiceBusName'), parameters('serviceBusAccessKeyName')),'2015-08-01').primaryConnectionString)]"
+							},
+							{
+								"name": "DocumentExchangeServices:DirectoriesManager:FileShareDirectories:ConnectionString",
+								"value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('pdsiexextuploadAccountName'),';AccountKey=',concat(listKeys(variables('pdsiexextupload'),'2015-05-01-preview').key1),';EndpointSuffix=core.windows.net')]"
+							},
+							{
+								"name": "DocumentExchangeServices:DirectoriesManager:BlobContainers:ConnectionString",
+								"value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('iexBlobStorageAccountName'),';AccountKey=',concat(listKeys(variables('pdsiexcosmos'),'2015-05-01-preview').key1),';EndpointSuffix=core.windows.net')]"
+							},
+							{
+								"name": "DocumentExchangeServices:DirectoriesManager:TeamsFileShareConnectionString",
+								"value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('pdsiexintAccountName'),';AccountKey=',concat(listKeys(variables('pdsiexint'),'2015-05-01-preview').key1),';EndpointSuffix=core.windows.net')]"
+							},
+							{
+								"name": "DocumentExchangeServices:CosmosDb:DataEncryptionKey",
+								"value": "[parameters('sharedCosmosEncryptionKey')]"
+							},
+							{
+								"name": "DocumentExchangeServices:AgencyService:ServiceBaseURL",
+								"value": "[parameters('agencyServiceBaseURL')]"
+							},
+							{
+								"name": "AzureAd:Instance",
+								"value": "https://login.microsoftonline.com/"
+							},
+							{
+								"name": "AzureAd:TenantId",
+								"value": "[parameters('authenticationTenantId')]"
+							},
+							{
+								"name": "AzureAd:ClientId",
+								"value": "[parameters('authenticationClientId')]"
+							},
+							{
+								"name": "AzureAd:Audience",
+								"value": "[parameters('authenticationClientId')]"
+							},
+							{
+								"name": "DocumentExchangeServices:WindowsDefenderAntivirus:Url",
+								"value": "[parameters('windowsDefenderAVUrl')]"
+							},
+							{
+								"name": "ExternalEmailQueue:QueueName",
+								"value": "[concat('ContractsQueue-', toLower(parameters('resourceEnvironmentName')))]"
+							},
+							{
+								"name": "ExternalEmailQueue:ConnectionString",
+								"value": "[parameters('externalEmailQueueConnectionString')]"
+							},
+							{
+								"name": "Cache:Redis:ConnectionString",
+								"value": "[concat(parameters('sharedRedisCacheName'), '.redis.cache.windows.net:6380,password=', listKeys(resourceId(parameters('sharedResourceGroupName'), 'Microsoft.Cache/Redis', parameters('sharedRedisCacheName')), '2016-04-01').primaryKey, ',ssl=True,abortConnect=False,defaultDatabase=', parameters('redisDatabaseNumber'), ',connectTimeout=', parameters('redisConnectTimeoutInMs'), ',syncTimeout=', parameters('redisSyncTimeoutInMs'), ',asyncTimeout=', parameters('redisAsyncTimeoutInMs'))]"
+							},
+							{
+								"name": "Cache:AllOrganisationsMemoryCacheTimeMinutes",
+								"value": "[parameters('allOrganisationsMemoryCacheTimeMinutes')]"
+							},
+							{
+								"name": "Cache:DocumentListCacheTimeMinutes",
+								"value": "[parameters('documentListCacheTimeMinutes')]"
+							},
+							{
+								"name": "Cache:DocumentValidationCacheTimeMinutes",
+								"value": "[parameters('documentValidationCacheTimeMinutes')]"
+							},
+							{
+								"name": "DocumentExchangeServices:Notification:UseDfeSignInContactsApi",
+								"value": "[parameters('useDfeSignInContactsApi')]"
+							},
+							{
+								"name": "NotificationServiceBusOptions:ServiceBusQueueName",
+								"value": "[parameters('notifyQueueName')]"
+							},
+							{
+								"name": "NotificationServiceBusOptions:ConnectionString",
+								"value": "[concat('Endpoint=sb://', parameters('sharedServiceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', parameters('serviceBusAccessKeyName'), ';SharedAccessKey=',listKeys(resourceId(parameters('sharedResourceGroupName'),'Microsoft.ServiceBus/namespaces/AuthorizationRules',parameters('sharedServiceBusName'), parameters('serviceBusAccessKeyName')),'2015-08-01').primaryConnectionString)]"
+							},
+							{
+								"name": "FdsApiClientConfiguration:Url",
+								"value": "[parameters('fdsApiUrl')]"
+							},
+							{
+								"name": "FdsApiClientConfiguration:ApimSubscriptionKey",
+								"value": "[concat('@Microsoft.KeyVault(VaultName=', parameters('sharedKeyVaultName'), ';SecretName=FdsPublicApiSubscriptionKey)')]"
+							},
+							{
+								"name": "DfESignin:PublicApi:Url",
+								"value": "[parameters('DfESigninPublicApiUrl')]"
+							},
+							{
+								"name": "DfESignin:PublicApi:ClientID",
+								"value": "[parameters('DfESigninPublicApiClientID')]"
+							},
+							{
+								"name": "DfeSignIn:PublicApi:TokenIssuer",
+								"value": "[parameters('DfeSignInPublicApiTokenIssuer')]"
+							},
+							{
+								"name": "DfESignin:PublicApi:ClientSecret",
+								"value": "[concat('@Microsoft.KeyVault(VaultName=', parameters('sharedKeyVaultName'), ';SecretName=DfESigninPublicApiDocExClientSecret)')]"
+							}
+						],
+						"appServiceConnectionStrings": {
+							"value": []
+						}
+					}
+				},
+				"dependsOn": [
+					"app-service-plan"
+				]
+			}
+		},
+		{
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2017-05-10",
+			"name": "HostingPlanAutoscaleOnCPURule",
+			"dependsOn": [
+				"app-service-plan"
+			],
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "[concat(variables('deploymentUrlBase'),'app-service-plan-autoscale.json')]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"appServicePlanName": {
+						"value": "[variables('appServicePlanName')]"
+					},
+					"scalingRuleName": {
+						"value": "[concat(variables('appServicePlanName'), '-CPUScaleRule')]"
+					},
+					"defaultCapacity": {
+						"value": "[parameters('hostingPlanMinAutoscaleInstances')]"
+					},
+					"minimumCapacity": {
+						"value": "[parameters('hostingPlanMinAutoscaleInstances')]"
+					},
+					"maximumCapacity": {
+						"value": "[parameters('hostingPlanMaxAutoscaleInstances')]"
+					},
+					"scalingRules": {
+						"value": [
+							{
+								"metricTrigger": {
+									"metricName": "CPUPercentage",
+									"metricNamespace": "",
+									"metricResourceUri": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
+									"timeGrain": "PT5M",
+									"statistic": "Average",
+									"timeWindow": "PT10M",
+									"timeAggregation": "Average",
+									"operator": "GreaterThan",
+									"threshold": "[parameters('hostingPlanScaleUpCpuThreshhold')]"
+								},
+								"scaleAction": {
+									"direction": "Increase",
+									"type": "ChangeCount",
+									"value": "1",
+									"cooldown": "PT10M"
+								}
+							},
+							{
+								"metricTrigger": {
+									"metricName": "CPUPercentage",
+									"metricNamespace": "",
+									"metricResourceUri": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
+									"timeGrain": "PT5M",
+									"statistic": "Average",
+									"timeWindow": "PT10M",
+									"timeAggregation": "Average",
+									"operator": "LessThan",
+									"threshold": "[parameters('hostingPlanScaleDownCpuThreshhold')]"
+								},
+								"scaleAction": {
+									"direction": "Decrease",
+									"type": "ChangeCount",
+									"value": "1",
+									"cooldown": "PT10M"
+								}
+							},
+							{
+								"metricTrigger": {
+									"metricName": "MemoryPercentage",
+									"metricNamespace": "",
+									"metricResourceUri": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
+									"timeGrain": "PT5M",
+									"statistic": "Average",
+									"timeWindow": "PT10M",
+									"timeAggregation": "Average",
+									"operator": "GreaterThan",
+									"threshold": "[parameters('hostingPlanScaleUpMemThreshhold')]"
+								},
+								"scaleAction": {
+									"direction": "Increase",
+									"type": "ChangeCount",
+									"value": "1",
+									"cooldown": "PT10M"
+								}
+							},
+							{
+								"metricTrigger": {
+									"metricName": "MemoryPercentage",
+									"metricNamespace": "",
+									"metricResourceUri": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
+									"timeGrain": "PT5M",
+									"statistic": "Average",
+									"timeWindow": "PT10M",
+									"timeAggregation": "Average",
+									"operator": "LessThan",
+									"threshold": "[parameters('hostingPlanScaleDownMemThreshhold')]"
+								},
+								"scaleAction": {
+									"direction": "Decrease",
+									"type": "ChangeCount",
+									"value": "1",
+									"cooldown": "PT10M"
+								}
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"apiVersion": "2017-05-10",
+			"name": "populator-app-service",
+			"type": "Microsoft.Resources/deployments",
+			"condition": "[not(equals(parameters('resourceEnvironmentName'), 'release'))]",
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "[concat(variables('deploymentUrlBase'),'app-service.json')]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"appServiceName": {
+						"value": "[variables('populatorAppServiceName')]"
+					},
+					"appServicePlanName": {
+						"value": "[variables('appServicePlanName')]"
+					},
+					"appServicePlanResourceGroup": {
+						"value": "[resourceGroup().name]"
+					},
+					"appServiceAppSettings": {
+						"value": [
+							{
+								"name": "ASPNETCORE_ENVIRONMENT",
+								"value": "[parameters('ASPNETCORE_ENVIRONMENT')]"
+							},
+							{
+								"name": "PdsApplicationInsights:InstrumentationKey",
+								"value": "[reference(resourceId(parameters('sharedResourceGroupName'), 'microsoft.insights/components', parameters('sharedAppInsightsName')),'2015-05-01').InstrumentationKey]"
+							},
+							{
+								"name": "PdsApplicationInsights:Environment",
+								"value": "[parameters('resourceEnvironmentName')]"
+							},
+							{
+								"name": "Logging:ApplicationInsights:Loglevel:Default",
+								"value": "Information"
+							},
+							{
+								"name": "Logging:ApplicationInsights:Loglevel:Microsoft",
+								"value": "Error"
+							},
+							{
+								"name": "Logging:LogLevel:Default",
+								"value": "Information"
+							},
+							{
+								"name": "CosmosDb:ServiceEndpoint",
+								"value": "[concat('https://', parameters('sharedCosmosDbName'), '.documents.azure.com')]"
+							},
+							{
+								"name": "CosmosDb:AuthKeyOrResourceToken",
+								"value": "[listKeys(resourceId(parameters('sharedPDSResourceGroupName'),'Microsoft.DocumentDB/databaseAccounts', parameters('sharedCosmosDbName')), '2015-04-08').primaryMasterKey]"
+							},
+							{
+								"name": "ServiceBusConnectionString",
+								"value": "[concat('Endpoint=sb://', parameters('sharedServiceBusName'), '.servicebus.windows.net/;SharedAccessKeyName=', parameters('serviceBusAccessKeyName'), ';SharedAccessKey=',listKeys(resourceId(parameters('sharedResourceGroupName'),'Microsoft.ServiceBus/namespaces/AuthorizationRules',parameters('sharedServiceBusName'), parameters('serviceBusAccessKeyName')),'2015-08-01').primaryConnectionString)]"
+							},
+							{
+								"name": "ExternalFileShareConnectionString",
+								"value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('pdsiexextuploadAccountName'),';AccountKey=',concat(listKeys(variables('pdsiexextupload'),'2015-05-01-preview').key1),';EndpointSuffix=core.windows.net')]"
+							},
+							{
+								"name": "BlobContainers:ConnectionString",
+								"value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('iexBlobStorageAccountName'),';AccountKey=',concat(listKeys(variables('pdsiexcosmos'),'2015-05-01-preview').key1),';EndpointSuffix=core.windows.net')]"
+							},
+							{
+								"name": "TeamsFileShareConnectionString",
+								"value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('pdsiexintAccountName'),';AccountKey=',concat(listKeys(variables('pdsiexint'),'2015-05-01-preview').key1),';EndpointSuffix=core.windows.net')]"
+							},
+							{
+								"name": "AzureAd:Instance",
+								"value": "https://login.microsoftonline.com/"
+							},
+							{
+								"name": "AzureAd:TenantId",
+								"value": "[parameters('populatorAuthenticationTenantId')]"
+							},
+							{
+								"name": "AzureAd:ClientId",
+								"value": "[parameters('populatorAuthenticationClientId')]"
+							},
+							{
+								"name": "AzureAd:Audience",
+								"value": "[parameters('populatorAuthenticationClientId')]"
+							},
+							{
+								"name": "MemoryCacheBulkJobStorage:CacheTimeToLiveMinutes",
+								"value": "60"
+							},
+							{
+								"name": "Cache:Redis:ConnectionString",
+								"value": "[concat(parameters('sharedRedisCacheName'), '.redis.cache.windows.net:6380,password=', listKeys(resourceId(parameters('sharedResourceGroupName'), 'Microsoft.Cache/Redis', parameters('sharedRedisCacheName')), '2016-04-01').primaryKey, ',ssl=True,abortConnect=False,defaultDatabase=', parameters('redisDatabaseNumber'))]"
+							}
+						]
+					},
+					"appServiceConnectionStrings": {
+						"value": []
+					}
+				}
+			},
+			"dependsOn": [
+				"app-service-plan"
+			]
+		},
+		{
+			"apiVersion": "2017-05-10",
+			"name": "[concat(variables('AppServicePlanName'), '-metric-', tolower(variables('AppServicePlanMetricsToAlertUpon')[copyIndex()].MetricName))]",
+			"type": "Microsoft.Resources/deployments",
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "[concat(variables('deploymentUrlBase'), 'alert-rules.json')]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"enabled": {
+						"value": "[variables('EnableAlertsAndMetrics')]"
+					},
+					"alertName": {
+						"value": "[concat(variables('AppServicePlanName'), '-metric-', tolower(variables('AppServicePlanMetricsToAlertUpon')[copyIndex()].MetricName))]"
+					},
+					"alertSeverity": {
+						"value": 3
+					},
+					"metricName": {
+						"value": "[variables('AppServicePlanMetricsToAlertUpon')[copyIndex()].MetricName]"
+					},
+					"operator": {
+						"value": "[variables('AppServicePlanMetricsToAlertUpon')[copyIndex()].Operator]"
+					},
+					"threshold": {
+						"value": "[variables('AppServicePlanMetricsToAlertUpon')[copyIndex()].Threshold]"
+					},
+					"aggregation": {
+						"value": "[variables('AppServicePlanMetricsToAlertUpon')[copyIndex()].Aggregation]"
+					},
+					"windowSize": {
+						"value": "[variables('AppServicePlanMetricsToAlertUpon')[copyIndex()].TimeWindow]"
+					},
+					"evaluationFrequency": {
+						"value": "PT1M"
+					},
+					"actionGroupName": {
+						"value": "[parameters('ActionGroupName')]"
+					},
+					"actionGroupResourceGroup": {
+						"value": "[parameters('sharedResourceGroupName')]"
+					},
+					"resourceId": {
+						"value": "[resourceId('Microsoft.Web/serverfarms', variables('AppServicePlanName'))]"
+					}
+				}
+			},
+			"copy": {
+				"name": "AppServicePlanMetricCopy",
+				"count": "[length(variables('AppServicePlanMetricsToAlertUpon'))]"
+			},
+			"dependsOn": [
+				"app-service-plan"
+			]
+		},
+		{
+			"apiVersion": "2017-05-10",
+			"name": "[concat(variables('AppServiceName'), '-metric-', tolower(variables('AppServiceMetricsToAlertUpon')[copyIndex()].MetricName))]",
+			"type": "Microsoft.Resources/deployments",
+			"properties": {
+				"mode": "Incremental",
+				"templateLink": {
+					"uri": "[concat(variables('deploymentUrlBase'), 'alert-rules.json')]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"enabled": {
+						"value": "[variables('EnableAlertsAndMetrics')]"
+					},
+					"alertName": {
+						"value": "[concat(variables('AppServiceName'), '-metric-', tolower(variables('AppServiceMetricsToAlertUpon')[copyIndex()].MetricName))]"
+					},
+					"alertSeverity": {
+						"value": 3
+					},
+					"metricName": {
+						"value": "[variables('AppServiceMetricsToAlertUpon')[copyIndex()].MetricName]"
+					},
+					"operator": {
+						"value": "[variables('AppServiceMetricsToAlertUpon')[copyIndex()].Operator]"
+					},
+					"threshold": {
+						"value": "[variables('AppServiceMetricsToAlertUpon')[copyIndex()].Threshold]"
+					},
+					"aggregation": {
+						"value": "[variables('AppServiceMetricsToAlertUpon')[copyIndex()].Aggregation]"
+					},
+					"windowSize": {
+						"value": "[variables('AppServiceMetricsToAlertUpon')[copyIndex()].TimeWindow]"
+					},
+					"evaluationFrequency": {
+						"value": "PT1M"
+					},
+					"actionGroupName": {
+						"value": "[parameters('ActionGroupName')]"
+					},
+					"actionGroupResourceGroup": {
+						"value": "[parameters('sharedResourceGroupName')]"
+					},
+					"resourceId": {
+						"value": "[resourceId('Microsoft.Web/sites', variables('AppServiceName'))]"
+					}
+				}
+			},
+			"copy": {
+				"name": "AppServiceMetricCopy",
+				"count": "[length(variables('AppServiceMetricsToAlertUpon'))]"
+			},
+			"dependsOn": [
+				"app-service"
+			]
+		}
+	],
+	"outputs": {
+		"AppServiceName": {
+			"type": "string",
+			"value": "[variables('appServiceName')]"
+		},
+		"PopulatorAppServiceName": {
+			"type": "string",
+			"value": "[variables('populatorAppServiceName')]"
+		}
+	}
+}

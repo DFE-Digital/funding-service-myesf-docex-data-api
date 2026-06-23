@@ -1,0 +1,1 @@
+﻿var myVariable = 'I am a variable';
