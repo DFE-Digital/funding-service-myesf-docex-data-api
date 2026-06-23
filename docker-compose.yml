@@ -1,0 +1,10 @@
+---
+services:
+  pds.documentexchange.data.api:
+    image: ${DOCKER_REGISTRY-}pdsdocumentexchangedataapi
+    build:
+      context: .
+      dockerfile: Pds.DocumentExchange.Data.Api/Dockerfile
+
+  redis:
+    image: redis

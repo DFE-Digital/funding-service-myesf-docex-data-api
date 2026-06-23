@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29806.167
+# Visual Studio Version 18
+VisualStudioVersion = 18.7.11911.148 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pds.DocumentExchange.Data.Api", "Pds.DocumentExchange.Data.Api\Pds.DocumentExchange.Data.Api.csproj", "{90BBFA7F-3590-4BA5-B4E4-EE37D7CE0045}"
 EndProject
@@ -22,6 +22,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pds.DocumentExchange.Data.Repository.Tests", "Pds.DocumentExchange.Data.Repository.Tests\Pds.DocumentExchange.Data.Repository.Tests.csproj", "{3B5A5191-66CF-43FE-9D88-9608AB5D66A2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pds.DocumentExchange.Data.Populator", "Pds.DocumentExchange.Data.Populator\Pds.DocumentExchange.Data.Populator.csproj", "{4A716A2D-589D-425A-AF6C-2F319FE6896D}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{4A716A2D-589D-425A-AF6C-2F319FE6896D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A716A2D-589D-425A-AF6C-2F319FE6896D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A716A2D-589D-425A-AF6C-2F319FE6896D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
