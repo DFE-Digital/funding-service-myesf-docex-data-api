@@ -1,11 +1,8 @@
-# Manage Your Education and Skills Funding Admin Api
+# Manage Your Education and Skills Funding Document Exchange Data Api
 
-The Manage Your Education and Skills Funding (MYESF) Admin Api is used by the MYESF web application to allow the following:
+The Manage Your Education and Skills Funding (MYESF) Document Exchange Data Api is used by the MYESF Document Exchange web application to allow the following:
 
-- Retrieval of GOV.UK Notify dependent information for the sending of email notifications
-- Storage and retrieval of impersonation provider information for internal DfE users
-
-It will be enhanced to include any generic/common functionality which is required in the future.
+- TODO
 
 ## Provider
 
@@ -20,6 +17,8 @@ The web api runs on an Azure App service on Azure.
 **Note:** The project is currently being updated to be containerised via Docker where the deployment method and target will change, this document will be updated when these changes have been finalised.
 
 # Local Configuration Guide
+
+TODO update with appropriate appsettings layout
 
 In order to run the application locally a valid `appsettings.json` file will need to be created in the `Pds.Admin.Api` project. Below, and included in the repo, there is `appsettings.example.json` which can be used as a base and populated with the required values, which can be retrieved from the Azure Portal.
 

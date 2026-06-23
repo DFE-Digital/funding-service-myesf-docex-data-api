@@ -297,47 +297,35 @@ namespace Pds.DocumentExchange.Data.Api.Tests.Integration
         {
             Mock.Get(MockConfig)
                 .Setup(x => x["CosmosDb:ServiceEndpoint"])
-                .Returns("test");
+                .Returns(Configuration["CosmosDb:ServiceEndpoint"]);
 
             Mock.Get(MockConfig)
                 .Setup(x => x["CosmosDb:AuthKeyOrResourceToken"])
-                .Returns("test");
+                .Returns(Configuration["CosmosDb:AuthKeyOrResourceToken"]);
 
             Mock.Get(MockConfig)
                 .Setup(x => x["DocumentExchangeServices:CosmosDb:DataEncryptionKey"])
-                .Returns("test");
+                .Returns(Configuration["DocumentExchangeServices:CosmosDb:DataEncryptionKey"]);
 
             Mock.Get(MockConfig)
                 .Setup(x => x["BlobContainers:ConnectionString"])
-                .Returns("test");
+                .Returns(Configuration["BlobContainers:ConnectionString"]);
 
             Mock.Get(MockConfig)
                 .Setup(x => x["BlobContainers:ContainerName"])
-                .Returns("testdata");
+                .Returns(Configuration["BlobContainers:ContainerName"]);
 
             Mock.Get(MockConfig)
                 .Setup(x => x["TeamsFileShareConnectionString"])
-                .Returns("test");
+                .Returns(Configuration["TeamsFileShareConnectionString"]);
 
             Mock.Get(MockConfig)
                 .Setup(x => x["ExternalFileShareConnectionString"])
-                .Returns("test");
+                .Returns(Configuration["ExternalFileShareConnectionString"]);
 
             Mock.Get(MockConfig)
                 .Setup(x => x["ServiceBusConnectionString"])
-                .Returns("test");
-
-            Mock.Get(MockConfig)
-                .Setup(x => x["DfESignin:PublicApi:Url"])
-                .Returns("testdsiuri");
-
-            Mock.Get(MockConfig)
-                .Setup(x => x["DfESignin:PublicApi:ClientID"])
-                .Returns("testclientid");
-
-            Mock.Get(MockConfig)
-                .Setup(x => x["DfESignin:PublicApi:ClientSecret"])
-                .Returns("testclientsecret");
+                .Returns(Configuration["ServiceBusConnectionString"]);
         }
 
         protected void SetUpAllCaches<T>()
