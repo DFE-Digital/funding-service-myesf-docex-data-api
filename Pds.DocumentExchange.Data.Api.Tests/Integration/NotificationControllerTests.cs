@@ -1,24 +1,18 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.ServiceBus;
-using Microsoft.Azure.ServiceBus.Core;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Newtonsoft.Json;
 using Pds.Core.BulkJobs.Models;
-using Pds.Core.Caching.Models;
 using Pds.Core.Common.Identity.Enums;
 using Pds.Core.Common.Organisation.Enums;
 using Pds.Core.Common.Organisation.Models;
 using Pds.Core.DfESignIn.Interfaces;
 using Pds.Core.DfESignIn.Models;
-using Pds.Core.DfESignIn.Services;
 using Pds.Core.Notification.Interfaces;
 using Pds.Core.Utils.Implementations;
 using Pds.Core.Utils.Interfaces;
 using Pds.DocumentExchange.Data.Api.Controllers;
-using Pds.DocumentExchange.Data.Api.Tests.DTOs;
 using Pds.DocumentExchange.Data.Populator.Models;
 using Pds.DocumentExchange.Data.Populator.Scenarios;
 using Pds.DocumentExchange.Data.Populator.Storage;
@@ -35,10 +29,7 @@ using Pds.DocumentExchange.Data.Services.Interfaces.Settings;
 using Pds.Services.Common.Implementations.Providers;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net.Http;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using NotifyNotificationModels = Pds.Core.Notification.Models;
 
@@ -562,41 +553,6 @@ namespace Pds.DocumentExchange.Data.Api.Tests.Integration
         private IDfESignInPublicApi GetDfESignInPublicApiService()
         {
             return DfESignInPublicApi;
-        }
-
-        private NotificationMessage GetNotificationMessage(byte[] message)
-        {
-            using (var stream = new MemoryStream(message))
-            {
-                var messageBody = string.Empty;
-
-                stream.Seek(0, SeekOrigin.Begin);
-                using (var reader = new StreamReader(stream))
-                {
-                    messageBody = reader.ReadToEnd();
-                }
-
-                var regex = new Regex(@"{(?<=\{)(.*?)(?=\})}", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-
-                var matches = regex.Matches(messageBody);
-
-                return JsonConvert.DeserializeObject<NotificationMessage>(matches[0].Value);
-            }
-        }
-
-        private async Task ClearQueueAsync()
-        {
-            var receiver = new MessageReceiver(
-                   MockConfig["ExternalEmailQueue:ConnectionString"],
-                   MockConfig["ExternalEmailQueue:QueueName"],
-                   ReceiveMode.ReceiveAndDelete);
-
-            while (await receiver.PeekAsync() != null)
-            {
-                await receiver.ReceiveAsync(100);
-            }
-
-            await receiver.CloseAsync();
         }
     }
 }

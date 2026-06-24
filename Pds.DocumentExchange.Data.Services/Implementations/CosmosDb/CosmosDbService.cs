@@ -133,7 +133,7 @@ namespace Pds.DocumentExchange.Data.Services.Implementations.CosmosDb
                 CosmosDbStoredProcedureNames.GetMIReport,
                 [from.ToString("yyyy-MM-ddTHH:mm:ss"), to.ToString("yyyy-MM-ddTHH:mm:ss")]);
 
-            List<MIReport> collatedResults = new ();
+            List<MIReport> collatedResults = new();
             foreach (var result in results)
             {
                 collatedResults.AddRange(result);

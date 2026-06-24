@@ -81,7 +81,6 @@ namespace Pds.DocumentExchange.Data.Api
                 .AddCacheConfiguration(Configuration)
                 .AddApiControllers()
                 .AddDocumentExchangeServiceConfiguration(Configuration)
-                .AddPushNotificationQueueConfiguration(Configuration)
                 .AddAzureADAuthentication(Configuration)
                 .AddDocumentExchangeRepositories(azureCosmosDbConfig)
                 .AddDocumentExchangeServices(Configuration)

@@ -167,8 +167,8 @@ namespace Pds.DocumentExchange.Data.Services.Implementations.Coordinators
 
                 if (!string.IsNullOrEmpty(message.EmailMessageType))
                 {
-                     _logger.LogInformation($"Using Notify. NotifyDocumentSender for EmailMessageType:{message.EmailMessageType}, for parent batch id:{batchAnalysis.ParentBatchID}");
-                     await _notifyEmailService.Push(message);
+                    _logger.LogInformation($"Using Notify. NotifyDocumentSender for EmailMessageType:{message.EmailMessageType}, for parent batch id:{batchAnalysis.ParentBatchID}");
+                    await _notifyEmailService.Push(message);
                 }
             }
         }

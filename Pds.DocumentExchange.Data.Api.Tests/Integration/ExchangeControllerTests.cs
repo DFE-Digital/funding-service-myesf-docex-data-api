@@ -1,8 +1,6 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Equivalency;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Microsoft.Testing.Platform.Extensions.Messages;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Pds.Core.Caching.Models;

@@ -77,8 +77,8 @@ namespace Pds.DocumentExchange.Data.Services.Implementations
                     organisationsData.TryGetValue(document.ToUKPRN.ToString(), out Organisation providerDetails) :
                     organisationsData.TryGetValue(document.FromUKPRN.ToString(), out providerDetails))
                 {
-                        document.ProviderName = providerDetails.Name;
-                        document.ProviderType = providerDetails.OrganisationSubType;
+                    document.ProviderName = providerDetails.Name;
+                    document.ProviderType = providerDetails.OrganisationSubType;
                 }
                 else
                 {

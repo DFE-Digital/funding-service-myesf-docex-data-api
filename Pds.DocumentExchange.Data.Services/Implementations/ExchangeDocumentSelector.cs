@@ -10,7 +10,6 @@ using Pds.DocumentExchange.Data.Services.Interfaces.Lookup;
 using Pds.Services.Common.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 

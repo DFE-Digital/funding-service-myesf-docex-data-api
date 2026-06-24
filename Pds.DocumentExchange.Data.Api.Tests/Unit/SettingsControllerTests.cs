@@ -831,8 +831,8 @@ namespace Pds.DocumentExchange.Data.Api.Tests.Unit
             // Arrange
             var setting = new EmailSetting
             {
-                    EmailMessageType = "test",
-                    LastUpdated = DateTime.Now
+                EmailMessageType = "test",
+                LastUpdated = DateTime.Now
             };
 
             var serviceSettings = new Services.DTOs.EmailSetting

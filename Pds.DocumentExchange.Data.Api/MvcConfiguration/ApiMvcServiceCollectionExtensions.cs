@@ -3,11 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pds.DocumentExchange.Data.Api.Extensions;
 using Pds.DocumentExchange.Data.Services.DTOs.Configuration;
-using Pds.DocumentExchange.Data.Services.Implementations.Providers;
 using Pds.DocumentExchange.Data.Services.Interfaces;
-using Pds.DocumentExchange.Data.Services.Interfaces.Providers;
-using Pds.Services.Common.Helpers;
-using System;
 
 namespace Pds.DocumentExchange.Data.Api.MvcConfiguration
 {
@@ -61,26 +57,6 @@ namespace Pds.DocumentExchange.Data.Api.MvcConfiguration
             var config = configuration.LoadSection<CacheConfiguration>("Cache");
 
             services.AddSingleton<ICacheConfiguration>(config);
-
-            return services;
-        }
-
-        /// <summary>
-        /// Add push notification configuration.
-        /// </summary>
-        /// <param name="services">The service collection.</param>
-        /// <param name="configuration">The configuration (section provider).</param>
-        /// <returns>The services collection.</returns>
-        public static IServiceCollection AddPushNotificationQueueConfiguration(this IServiceCollection services, IConfiguration configuration)
-        {
-            var config = configuration.LoadSection<PushNotificationQueueConfigurationProvider>("ExternalEmailQueue");
-
-            It.IsNull(config)
-                .AsGuard<ArgumentNullException>(nameof(config));
-            It.IsEmpty(config.ConnectionString)
-                .AsGuard<ArgumentNullException>(nameof(PushNotificationQueueConfigurationProvider.ConnectionString));
-
-            services.AddSingleton(typeof(IProvidePushNotificationQueueConfiguration), config);
 
             return services;
         }

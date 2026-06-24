@@ -27,7 +27,7 @@ namespace Pds.DocumentExchange.Data.Services.DTOs.BatchAnalysis
         public bool IsInternal { get; set; }
 
         /// <inheritdoc/>
-        public DateTime InitialBatchDate { get; set;  }
+        public DateTime InitialBatchDate { get; set; }
 
         /// <inheritdoc/>
         public IReadOnlyCollection<int> RecipientOrganisations { get; set; }

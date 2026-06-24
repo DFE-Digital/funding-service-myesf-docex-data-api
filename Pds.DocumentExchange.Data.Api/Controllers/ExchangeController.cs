@@ -7,7 +7,6 @@ using Pds.DocumentExchange.Data.Api.Validations;
 using Pds.DocumentExchange.Data.Services.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;

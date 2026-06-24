@@ -1,7 +1,4 @@
-﻿using Pds.Core.Common.Organisation.Enums;
-using Pds.Core.Common.Organisation.Models;
-using Pds.DocumentExchange.Data.Services.DTOs;
-using Pds.DocumentExchange.Data.Services.Interfaces.Lookup;
+﻿using Pds.DocumentExchange.Data.Services.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
