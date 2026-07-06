@@ -210,7 +210,7 @@ You must select docker-compose as the startup project to ensure that all depende
 
 ## Test execution
 
-In order to run the application locally a valid `appsettings.json` file will need to be created in the `Pds.DocumentExchange.Data.Api.Tests` project. `appsettings.example.json`, in `Pds.DocumentExchange.Data.Api.Tests` can be used as a base and populated with appropriate values which can be found in Azure Portal. The local environment resources should be utilised.
+In order to test the application locally a valid `appsettings.json` file will need to be created in the `Pds.DocumentExchange.Data.Api.Tests` project. `appsettings.example.json`, in `Pds.DocumentExchange.Data.Api.Tests` can be used as a base and populated with appropriate values which can be found in Azure Portal. The local environment resources should be utilised.
 
 ## Test Application Settings (`appsettings.json`)
 
