@@ -261,4 +261,15 @@ In order to test the application locally a valid `appsettings.json` file will ne
 - **`ServiceBusConnectionString`**  
   The connection string for the service bus resource for sending and processing messages related to upload, publish and virus scan processes. (Use `pds-sfs-servicebus`)
 
+## Build and Test
+
+To build and test locally, you can either use Visual Studio, Visual Studio Code or simply use dotnet CLI `dotnet build` and `dotnet test` more information in dotnet CLI can be found at <https://docs.microsoft.com/en-us/dotnet/core/tools/>.
+
+## Contribute
+
+To contribute,
+
+- If you are part of the team then create a branch for changes and then submit your changes for review by creating a pull request.
+- If you are external to the organisation then fork this repository and make necessary changes and then submit your changes for review by creating a pull request.
+
   
