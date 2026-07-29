@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿using MapsterMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Pds.Core.Common.Organisation.Enums;

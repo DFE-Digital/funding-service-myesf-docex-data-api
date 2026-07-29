@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿using MapsterMapper;
 using Pds.Core.Utils.Helpers;
 using Pds.DocumentExchange.Data.Services.DTOs.Filters;
 using Pds.DocumentExchange.Data.Services.Extensions;

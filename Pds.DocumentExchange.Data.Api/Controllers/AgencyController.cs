@@ -1,9 +1,10 @@
-﻿using AutoMapper;
+﻿using MapsterMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Pds.Core.Logging;
 using Pds.DocumentExchange.Data.Api.Models;
 using Pds.DocumentExchange.Data.Api.Validations;
+using Pds.DocumentExchange.Data.Services.DTOs;
 using Pds.DocumentExchange.Data.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -80,7 +81,7 @@ namespace Pds.DocumentExchange.Data.Api.Controllers
         [HttpGet("teams/{teams}/[action]")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-        public async Task<ActionResult<FileShareSummary>> Summary(string teams)
+        public async Task<ActionResult<Models.FileShareSummary>> Summary(string teams)
         {
             try
             {
@@ -97,7 +98,7 @@ namespace Pds.DocumentExchange.Data.Api.Controllers
                 var fileShareSummary = await _agencyService.Summary(teamsList);
                 _logger.LogInformation($"Received file share summary for the teams: {teams}");
 
-                var result = _mapper.Map<Services.DTOs.FileShareSummary, FileShareSummary>(fileShareSummary);
+                var result = _mapper.Map<Services.DTOs.FileShareSummary, Models.FileShareSummary>(fileShareSummary);
 
                 _logger.LogInformation($"Finished action: {nameof(Summary)}");
 
@@ -121,7 +122,7 @@ namespace Pds.DocumentExchange.Data.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<ListResult<AgencyDocument>>> Documents(string teams, AgencyListDocumentOptions options)
+        public async Task<ActionResult<Models.ListResult<Models.AgencyDocument>>> Documents(string teams, Models.AgencyListDocumentOptions options)
         {
             try
             {
@@ -137,13 +138,13 @@ namespace Pds.DocumentExchange.Data.Api.Controllers
 
                 _logger.LogInformation($"Agency documents process started for team {teams}.");
 
-                var serviceOptions = _mapper.Map<AgencyListDocumentOptions,
+                var serviceOptions = _mapper.Map<Models.AgencyListDocumentOptions,
                             Services.DTOs.AgencyListDocumentOptions>(options);
 
                 var listResult = await _agencyService.GetDocuments(teamsList, serviceOptions);
 
                 var result = _mapper.Map<Services.DTOs.ListResult<Services.DTOs.AgencyDocument>,
-                        ListResult<AgencyDocument>>(listResult);
+                        Models.ListResult<Models.AgencyDocument>>(listResult);
 
                 _logger.LogInformation($"Agency documents process finished for team {teams}.");
 
@@ -264,7 +265,7 @@ namespace Pds.DocumentExchange.Data.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<KeyValuePair<Product, int>>> Publish(string team, AgencyPublishRequest agencyPublishRequest)
+        public async Task<ActionResult<KeyValuePair<Product, int>>> Publish(string team, Models.AgencyPublishRequest agencyPublishRequest)
         {
             try
             {

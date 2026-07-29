@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using AutoMapper.Internal;
+﻿using MapsterMapper;
 using Newtonsoft.Json;
 using Pds.Core.Common.Organisation.Enums;
 using Pds.Core.Common.Organisation.Models;

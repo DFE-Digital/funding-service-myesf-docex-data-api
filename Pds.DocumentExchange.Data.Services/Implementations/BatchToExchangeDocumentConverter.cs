@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿using MapsterMapper;
 using Microsoft.Azure.Cosmos.Serialization.HybridRow;
 using Pds.Core.Common.Organisation.Enums;
 using Pds.Core.Common.Organisation.Models;

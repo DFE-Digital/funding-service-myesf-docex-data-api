@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Mapster;
+using MapsterMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -67,8 +68,6 @@ namespace Pds.DocumentExchange.Data.Services.DependencyInjection
             });
 
             services.AddHttpClient<IDfESignInPublicApi, DfESignInPublicApi>();
-
-            services.AddAutoMapper(typeof(FeatureServiceCollectionExtensions));
 
             services.AddTransient<IFileNameProvider, FileNameProvider>();
 

@@ -1,24 +1,22 @@
-﻿using AutoMapper;
-using Pds.Core.Common.Organisation.Enums;
+﻿using Pds.Core.Common.Organisation.Enums;
 using Pds.Core.Common.Organisation.Models;
 using Pds.DocumentExchange.Data.Services.DTOs.FDS;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Pds.DocumentExchange.Data.Services.AutoMapper.Converters
+namespace Pds.DocumentExchange.Data.Services.Mapster.Converters
 {
     /// <summary>
     /// The fds api provider response to organisation converter.
     /// </summary>
-    public class FdsOrganisationToOrganisationConverter : ITypeConverter<IEnumerable<Provider>, IEnumerable<Organisation>>
+    public class FdsOrganisationToOrganisationConverter
     {
         private const string OtherType = "OtherType";
         private const string OtherTypeDisplayValue = "Other types";
         private const string Miscellaneous = "Miscellaneous";
         private const string MgntGroupOrganisation = "ManagementGroup";
 
-        /// <inheritdoc/>
-        public IEnumerable<Organisation> Convert(IEnumerable<Provider> source, IEnumerable<Organisation> destination, ResolutionContext context)
+        public IEnumerable<Organisation> Convert(IEnumerable<Provider> source)
         {
             if (source == null)
             {

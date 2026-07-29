@@ -1,13 +1,13 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Pds.DocumentExchange.Data.Api.AutoMapperProfiles.Converters;
+using Pds.DocumentExchange.Data.Api.Mapster.Converters;
 using Pds.DocumentExchange.Data.Services.DTOs;
 using Pds.DocumentExchange.Data.Services.DTOs.SupportTools;
 using Pds.DocumentExchange.Data.Services.Interfaces;
 using System;
 
-namespace Pds.DocumentExchange.Data.Api.Tests.Unit.AutoMapperProfiles.Converters
+namespace Pds.DocumentExchange.Data.Api.Tests.Unit.Mapster.Converters
 {
     [TestClass]
     [TestCategory("Unit")]
@@ -25,7 +25,7 @@ namespace Pds.DocumentExchange.Data.Api.Tests.Unit.AutoMapperProfiles.Converters
         public void Convert_FromNull_Throws()
         {
             // Act
-            Func<Models.SupportTools.PublishedBatch> func = () => _converter.Convert(null, null, null);
+            Func<Models.SupportTools.PublishedBatch> func = () => _converter.Convert(null);
 
             // Assert
             func.Should().ThrowExactly<ArgumentNullException>();
@@ -72,7 +72,7 @@ namespace Pds.DocumentExchange.Data.Api.Tests.Unit.AutoMapperProfiles.Converters
                 .Returns(decryptedUser);
 
             // Act
-            var result = _converter.Convert(publishedBatch, null, null);
+            var result = _converter.Convert(publishedBatch);
 
             // Assert
             result.Should().BeEquivalentTo(expected);

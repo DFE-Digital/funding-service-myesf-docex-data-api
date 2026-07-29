@@ -1,19 +1,17 @@
-﻿using AutoMapper;
-using Pds.DocumentExchange.Data.Api.Models.SupportTools;
+﻿using Pds.DocumentExchange.Data.Api.Models.SupportTools;
 using Pds.DocumentExchange.Data.Services.DTOs;
 using Pds.DocumentExchange.Data.Services.Enums;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Pds.DocumentExchange.Data.Api.AutoMapperProfiles.Converters
+namespace Pds.DocumentExchange.Data.Api.Mapster.Converters
 {
     /// <summary>
     /// The batches to published documents converter.
     /// </summary>
-    public class BatchesToPublishedDocumentsConverter : ITypeConverter<IEnumerable<BatchMetadata>, IEnumerable<PublishedDocument>>
+    public class BatchesToPublishedDocumentsConverter
     {
-        /// <inheritdoc/>
-        public IEnumerable<PublishedDocument> Convert(IEnumerable<BatchMetadata> source, IEnumerable<PublishedDocument> destination, ResolutionContext context)
+        public IEnumerable<PublishedDocument> Convert(IEnumerable<BatchMetadata> source)
         {
             if (source == null)
             {
