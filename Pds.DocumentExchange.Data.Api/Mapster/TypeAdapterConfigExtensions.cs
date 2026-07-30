@@ -27,6 +27,7 @@ namespace Pds.DocumentExchange.Data.Api.Mapster
             TypeAdapterConfig.GlobalSettings.Default.PreserveReference(true);
             TypeAdapterConfig.GlobalSettings.AllowImplicitSourceInheritance = true;
             TypeAdapterConfig.GlobalSettings.Default.EnumMappingStrategy(EnumMappingStrategy.ByName);
+            config.Default.AddDestinationTransform(DestinationTransform.EmptyCollectionIfNull);
 
             config
                 .ForType<Services.DTOs.User.UserInfo, FileMetadataUser>()
@@ -61,29 +62,10 @@ namespace Pds.DocumentExchange.Data.Api.Mapster
                     Value = source.Values.Where(value => value.Selected).Select(value => value.Value).FirstOrDefault()
                 });
 
-            config.ForType<Services.DTOs.ListResult<Services.DTOs.ExchangeDocument>, Models.ListResult<Models.ExchangeDocument>>()
-                .TwoWays()
-                .AddDestinationTransform(DestinationTransform.EmptyCollectionIfNull);
-
             config
-                .ForType<Services.DTOs.ListResult<Services.DTOs.SupportTools.PublishedBatch>, Models.ListResult<Models.SupportTools.PublishedBatch>>()
-                .TwoWays()
-                .AddDestinationTransform(DestinationTransform.EmptyCollectionIfNull);
-
-            config
-                .ForType<AgencyDocument, Models.AgencyDocument>()
+                .ForType<Services.DTOs.AgencyDocument, Models.AgencyDocument>()
                 .TwoWays()
                 .Map(dest => dest.FileNameError, source => source.ErrorDescription);
-
-            config
-                .ForType<Models.AgencyListDocumentOptions, Services.DTOs.AgencyListDocumentOptions>()
-                .TwoWays()
-                .AddDestinationTransform(DestinationTransform.EmptyCollectionIfNull);
-
-            config
-                .ForType<Services.DTOs.ExchangeListDocumentOptions, Models.ExchangeListDocumentOptions>()
-                .TwoWays()
-                .AddDestinationTransform(DestinationTransform.EmptyCollectionIfNull);
 
             config
                 .ForType<PublishedBatch, Models.SupportTools.PublishedBatch>()
