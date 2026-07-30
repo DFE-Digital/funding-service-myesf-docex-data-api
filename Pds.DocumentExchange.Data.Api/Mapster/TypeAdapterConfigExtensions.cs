@@ -24,9 +24,9 @@ namespace Pds.DocumentExchange.Data.Api.Mapster
         /// <param name="config">The TypeAdapter config.</param>
         public static TypeAdapterConfig Configure(this TypeAdapterConfig config)
         {
-            TypeAdapterConfig.GlobalSettings.Default.PreserveReference(true);
             TypeAdapterConfig.GlobalSettings.AllowImplicitSourceInheritance = true;
-            TypeAdapterConfig.GlobalSettings.Default.EnumMappingStrategy(EnumMappingStrategy.ByName);
+            config.Default.PreserveReference(true);
+            config.Default.EnumMappingStrategy(EnumMappingStrategy.ByName);
             config.Default.AddDestinationTransform(DestinationTransform.EmptyCollectionIfNull);
 
             config
