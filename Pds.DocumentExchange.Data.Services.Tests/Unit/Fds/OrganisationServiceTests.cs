@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using AutoMapper.Internal;
-using FluentAssertions;
+﻿using FluentAssertions;
+using Mapster;
+using MapsterMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Moq.Protected;
@@ -8,10 +8,10 @@ using Newtonsoft.Json;
 using Pds.Core.Common.Organisation.Enums;
 using Pds.Core.Common.Organisation.Models;
 using Pds.Core.Logging;
-using Pds.DocumentExchange.Data.Services.AutoMapper;
 using Pds.DocumentExchange.Data.Services.DTOs.Configuration;
 using Pds.DocumentExchange.Data.Services.DTOs.FDS;
 using Pds.DocumentExchange.Data.Services.Implementations.FDS;
+using Pds.DocumentExchange.Data.Services.Mapster;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,8 +28,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Fds
     {
         private readonly HttpMessageHandler _httpMessageHandler = Mock.Of<HttpMessageHandler>();
         private readonly Mock<ILoggerAdapter<OrganisationService>> _logger = new Mock<ILoggerAdapter<OrganisationService>>();
-        private readonly IMapper _mapper
-           = new Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new AutoMapperProfile())));
+        private readonly IMapper _mapper = new Mapper(new TypeAdapterConfig().Configure());
 
         [TestMethod]
         public async Task Get_All_Organisation()

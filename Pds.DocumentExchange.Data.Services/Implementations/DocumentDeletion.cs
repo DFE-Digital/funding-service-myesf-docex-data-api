@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿using MapsterMapper;
 using Pds.Core.Logging;
 using Pds.Core.Utils;
 using Pds.Core.Utils.Helpers;

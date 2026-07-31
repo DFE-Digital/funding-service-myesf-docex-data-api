@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿using MapsterMapper;
 using Pds.Core.BulkJobs.Interfaces;
 using Pds.Core.BulkJobs.Models;
 using Pds.Core.Logging;

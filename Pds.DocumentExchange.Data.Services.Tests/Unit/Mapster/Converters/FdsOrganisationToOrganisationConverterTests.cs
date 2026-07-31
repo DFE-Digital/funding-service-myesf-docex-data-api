@@ -2,11 +2,11 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Pds.Core.Common.Organisation.Enums;
 using Pds.Core.Common.Organisation.Models;
-using Pds.DocumentExchange.Data.Services.AutoMapper.Converters;
 using Pds.DocumentExchange.Data.Services.DTOs.FDS;
+using Pds.DocumentExchange.Data.Services.Mapster.Converters;
 using System.Collections.Generic;
 
-namespace Pds.DocumentExchange.Data.Services.Tests.Unit.AutoMapperProfiles.Converters
+namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Mapster.Converters
 {
     [TestClass]
     [TestCategory("Unit")]
@@ -18,7 +18,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.AutoMapperProfiles.Conve
         public void Convert_FromNull_ReturnsAPI()
         {
             // Act
-            var result = _converter.Convert(null, null, null);
+            var result = _converter.Convert(null);
 
             // Assert
             result.Should().BeEmpty();
@@ -206,7 +206,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.AutoMapperProfiles.Conve
             };
 
             // Act
-            var result = _converter.Convert(providers, null, null);
+            var result = _converter.Convert(providers);
 
             // Assert
             result.Should().BeEquivalentTo(expected);

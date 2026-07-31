@@ -108,10 +108,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="BouncyCastle.NetCore" Version="1.8.8" />
     <PackageReference Include="CsvHelper" Version="32.0.3" />
     <PackageReference Include="FreeDataExports" Version="1.1.12" />
+    <PackageReference Include="Mapster" Version="10.0.11" />
+    <PackageReference Include="Mapster.DependencyInjection" Version="10.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
     <PackageReference Include="Microsoft.Azure.ServiceBus" Version="5.1.1" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />

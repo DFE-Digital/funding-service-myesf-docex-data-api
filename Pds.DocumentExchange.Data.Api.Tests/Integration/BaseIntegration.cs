@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Mapster;
+using MapsterMapper;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,8 +12,8 @@ using Pds.Core.DistributedLocks.Services;
 using Pds.Core.Logging;
 using Pds.Core.Utils;
 using Pds.Core.Utils.Interfaces;
-using Pds.DocumentExchange.Data.Api.AutoMapperProfiles;
-using Pds.DocumentExchange.Data.Api.AutoMapperProfiles.Converters;
+using Pds.DocumentExchange.Data.Api.Mapster;
+using Pds.DocumentExchange.Data.Api.Mapster.Converters;
 using Pds.DocumentExchange.Data.Api.Validations;
 using Pds.DocumentExchange.Data.Populator.Scenarios;
 using Pds.DocumentExchange.Data.Populator.Storage;
@@ -83,29 +84,7 @@ namespace Pds.DocumentExchange.Data.Api.Tests.Integration
 
         protected IAntivirus MockAntivirus { get; } = Mock.Of<IAntivirus>(MockBehavior.Strict);
 
-        protected IMapper Mapper { get; } = new Mapper(
-               new MapperConfiguration(
-                   mapper =>
-                   {
-                       mapper.AddProfiles(new Profile[]
-                       {
-                            new AutoMapperProfile()
-                       });
-
-                       mapper.ConstructServicesUsing(type =>
-                       {
-                           if (type == typeof(PublishedBatchConverter))
-                           {
-                               return CreatePublishedBatchConverter();
-                           }
-                           else if (type == typeof(BatchesToPublishedDocumentsConverter))
-                           {
-                               return new BatchesToPublishedDocumentsConverter();
-                           }
-
-                           throw new NotImplementedException();
-                       });
-                   }));
+        protected IMapper Mapper { get; } = new Mapper(new TypeAdapterConfig().Configure());
 
         protected DocumentsPublishedByAgencyScenario DocumentsPublishedByAgencyPopulator { get; } = new DocumentsPublishedByAgencyScenario();
 

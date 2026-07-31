@@ -1,15 +1,14 @@
-﻿using AutoMapper;
-using Pds.DocumentExchange.Data.Services.DTOs.SupportTools;
+﻿using Pds.DocumentExchange.Data.Services.DTOs.SupportTools;
 using Pds.DocumentExchange.Data.Services.Interfaces;
 using System;
-using PublishedDocumentApi = Pds.DocumentExchange.Data.Api.Models.SupportTools.PublishedBatch;
+using ApiPublishedBatch = Pds.DocumentExchange.Data.Api.Models.SupportTools.PublishedBatch;
 
-namespace Pds.DocumentExchange.Data.Api.AutoMapperProfiles.Converters
+namespace Pds.DocumentExchange.Data.Api.Mapster.Converters
 {
     /// <summary>
     /// The organisation cache warm-up result converter.
     /// </summary>
-    public class PublishedBatchConverter : ITypeConverter<PublishedBatch, PublishedDocumentApi>
+    public class PublishedBatchConverter
     {
         private readonly IFileMetadataUserEncryptor _fileMetadataUserEncryptor;
 
@@ -22,8 +21,7 @@ namespace Pds.DocumentExchange.Data.Api.AutoMapperProfiles.Converters
             _fileMetadataUserEncryptor = fileMetadataUserEncryptor;
         }
 
-        /// <inheritdoc/>
-        public PublishedDocumentApi Convert(PublishedBatch source, PublishedDocumentApi destination, ResolutionContext context)
+        public ApiPublishedBatch Convert(PublishedBatch source)
         {
             if (source == null)
             {
@@ -32,7 +30,7 @@ namespace Pds.DocumentExchange.Data.Api.AutoMapperProfiles.Converters
 
             var user = _fileMetadataUserEncryptor.Decrypt(source.UploadedBy);
 
-            return new PublishedDocumentApi
+            return new ApiPublishedBatch
             {
                 ParentBatchIdentifier = source.ParentBatchIdentifier,
                 DateAndTime = source.DateAndTime,

@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using FluentAssertions;
+﻿using FluentAssertions;
 using FluentValidation.Results;
+using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;

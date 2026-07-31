@@ -1,3 +1,5 @@
+using Mapster;
+using MapsterMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Azure.Cosmos;
@@ -17,6 +19,7 @@ using Pds.Core.Notification.Registration;
 using Pds.Core.Telemetry.ApplicationInsights;
 using Pds.Core.Utils;
 using Pds.DocumentExchange.Data.Api.Extensions;
+using Pds.DocumentExchange.Data.Api.Mapster;
 using Pds.DocumentExchange.Data.Api.MvcConfiguration;
 using Pds.DocumentExchange.Data.Api.Validations;
 using Pds.DocumentExchange.Data.Repository.DependencyInjection;
@@ -74,6 +77,7 @@ namespace Pds.DocumentExchange.Data.Api
         {
             var azureCosmosDbConfig = Configuration.LoadSection<AzureCosmosDbRepositoryConfiguration>("AzureCosmosDb");
             Action<RedisConfiguration> bindRedisConfig = c => Configuration.Bind("Cache:Redis", c);
+
             services
                 .AddHttpClient()
                 .AddRedisAndMemoryCache(bindRedisConfig)
@@ -83,9 +87,10 @@ namespace Pds.DocumentExchange.Data.Api
                 .AddDocumentExchangeServiceConfiguration(Configuration)
                 .AddAzureADAuthentication(Configuration)
                 .AddDocumentExchangeRepositories(azureCosmosDbConfig)
-                .AddDocumentExchangeServices(Configuration)
 
-                .AddAutoMapper(typeof(Startup))
+                .AddSingleton(new TypeAdapterConfig().Configure())
+                .AddSingleton<IMapper, ServiceMapper>()
+                .AddDocumentExchangeServices(Configuration)
                 .AddValidations()
                 .AddLoggerAdapter()
                 .AddPdsApplicationInsightsTelemetry(BuildAppInsightsConfiguration)
