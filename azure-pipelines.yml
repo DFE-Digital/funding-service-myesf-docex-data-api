@@ -161,6 +161,7 @@ stages:
         repository: $(imageRepository)
         containerRegistry: $(dockerRegistryServiceConnectionPreProd)
         dockerfile: $(dockerfilePath)
+        buildContext: .
         tags: |
           latest-rc
           $(tag)-rc
@@ -184,6 +185,7 @@ stages:
         repository: $(imageRepository)
         containerRegistry: $(dockerRegistryServiceConnectionProd)
         dockerfile: $(dockerfilePath)
+        buildContext: .
         tags: |
           latest-rc
           $(tag)-rc
