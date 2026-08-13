@@ -26,7 +26,6 @@ namespace Pds.DocumentExchange.Data.Api.Mapster
         {
             TypeAdapterConfig.GlobalSettings.AllowImplicitSourceInheritance = true;
             config.Default.PreserveReference(true);
-            config.Default.EnumMappingStrategy(EnumMappingStrategy.ByName);
             config.Default.AddDestinationTransform(DestinationTransform.EmptyCollectionIfNull);
 
             config
