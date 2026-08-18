@@ -84,7 +84,7 @@ namespace Pds.DocumentExchange.Data.Api.Tests.Integration
 
         protected IAntivirus MockAntivirus { get; } = Mock.Of<IAntivirus>(MockBehavior.Strict);
 
-        protected IMapper Mapper { get; } = new Mapper(new TypeAdapterConfig().Configure());
+        protected IMapper Mapper { get; } = new Mapper(new TypeAdapterConfig().Configure(null));
 
         protected DocumentsPublishedByAgencyScenario DocumentsPublishedByAgencyPopulator { get; } = new DocumentsPublishedByAgencyScenario();
 

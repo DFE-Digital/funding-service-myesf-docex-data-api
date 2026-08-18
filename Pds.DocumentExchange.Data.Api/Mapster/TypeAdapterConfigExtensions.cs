@@ -22,8 +22,13 @@ namespace Pds.DocumentExchange.Data.Api.Mapster
         /// Adds mappings to the TypeAdapterConfig.
         /// </summary>
         /// <param name="config">The TypeAdapter config.</param>
-        public static TypeAdapterConfig Configure(this TypeAdapterConfig config)
+        public static TypeAdapterConfig Configure(this TypeAdapterConfig config, CosmosDbConfiguration cosmosConfig)
         {
+            if (cosmosConfig == null)
+            {
+                cosmosConfig = new CosmosDbConfiguration();
+            }
+
             TypeAdapterConfig.GlobalSettings.AllowImplicitSourceInheritance = true;
             config.Default.PreserveReference(true);
             config.Default.EnumMappingStrategy(EnumMappingStrategy.ByName);
@@ -70,7 +75,7 @@ namespace Pds.DocumentExchange.Data.Api.Mapster
             config
                 .ForType<PublishedBatch, Models.SupportTools.PublishedBatch>()
                 .MapWith(source =>
-                    new PublishedBatchConverter(new FileMetadataUserEncryptor(new EncryptionService(), new CosmosDbConfiguration())).Convert(source));
+                    new PublishedBatchConverter(new FileMetadataUserEncryptor(new EncryptionService(), cosmosConfig)).Convert(source));
 
             config
                 .ForType<IEnumerable<Services.DTOs.BatchMetadata>, IEnumerable<Models.SupportTools.PublishedDocument>>()

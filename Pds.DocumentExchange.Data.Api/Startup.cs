@@ -25,6 +25,7 @@ using Pds.DocumentExchange.Data.Api.Validations;
 using Pds.DocumentExchange.Data.Repository.DependencyInjection;
 using Pds.DocumentExchange.Data.Repository.DTOs.Configuration;
 using Pds.DocumentExchange.Data.Services.DependencyInjection;
+using Pds.DocumentExchange.Data.Services.DTOs.Configuration;
 using System;
 using System.Threading.Tasks;
 
@@ -78,6 +79,8 @@ namespace Pds.DocumentExchange.Data.Api
             var azureCosmosDbConfig = Configuration.LoadSection<AzureCosmosDbRepositoryConfiguration>("AzureCosmosDb");
             Action<RedisConfiguration> bindRedisConfig = c => Configuration.Bind("Cache:Redis", c);
 
+            var cosmosDbConfig = Configuration.LoadSection<CosmosDbConfiguration>("DocumentExchangeServices:CosmosDb");
+
             services
                 .AddHttpClient()
                 .AddRedisAndMemoryCache(bindRedisConfig)
@@ -88,7 +91,7 @@ namespace Pds.DocumentExchange.Data.Api
                 .AddAzureADAuthentication(Configuration)
                 .AddDocumentExchangeRepositories(azureCosmosDbConfig)
 
-                .AddSingleton(new TypeAdapterConfig().Configure())
+                .AddSingleton(new TypeAdapterConfig().Configure(cosmosDbConfig))
                 .AddSingleton<IMapper, ServiceMapper>()
                 .AddDocumentExchangeServices(Configuration)
                 .AddValidations()
