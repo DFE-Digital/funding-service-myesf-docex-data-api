@@ -117,12 +117,12 @@ stages:
 - stage: Publish
   displayName: Publish Docker image and build artifact
   dependsOn: Test
-  condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), startsWith(variables['Build.SourceBranch'], 'refs/heads/feature'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release'), startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix')))
+  condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release'), startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix')))
   jobs:
   # Job 1 - Build and Push to Development ACR
   - job: DockerBuildDev
     displayName: Build and push Docker image for Development
-    condition: or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), startsWith(variables['Build.SourceBranch'], 'refs/heads/feature'),  startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix'))
+    condition: or(eq(variables['Build.SourceBranch'], 'refs/heads/main'),  startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix'))
     steps:
     # Step 1: Build the Docker image
     - task: Docker@2

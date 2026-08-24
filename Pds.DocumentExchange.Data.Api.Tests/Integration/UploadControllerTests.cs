@@ -20,7 +20,6 @@ namespace Pds.DocumentExchange.Data.Api.Tests.Integration
         public UploadControllerTests()
         {
             SetupSystemProvider();
-            SetUpConfig();
         }
 
         #region Document

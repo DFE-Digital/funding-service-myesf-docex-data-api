@@ -84,7 +84,7 @@ namespace Pds.DocumentExchange.Data.Api.Tests.Integration
 
         protected IAntivirus MockAntivirus { get; } = Mock.Of<IAntivirus>(MockBehavior.Strict);
 
-        protected IMapper Mapper { get; } = new Mapper(new TypeAdapterConfig().Configure(null));
+        protected IMapper Mapper { get; set; }
 
         protected DocumentsPublishedByAgencyScenario DocumentsPublishedByAgencyPopulator { get; } = new DocumentsPublishedByAgencyScenario();
 
@@ -93,6 +93,8 @@ namespace Pds.DocumentExchange.Data.Api.Tests.Integration
         protected BaseIntegration()
         {
             Configuration = BuildConfiguration();
+            SetUpConfig();
+            Mapper = new Mapper(new TypeAdapterConfig().Configure(GetFileMetadataUserEncryptor()));
         }
 
         protected ILoggerAdapter<T> CreateMockLoggerAdapter<T>()

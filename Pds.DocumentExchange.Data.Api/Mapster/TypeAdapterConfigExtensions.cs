@@ -3,10 +3,9 @@ using Pds.Core.Common.Organisation.Models;
 using Pds.DocumentExchange.Data.Api.Enums;
 using Pds.DocumentExchange.Data.Api.Mapster.Converters;
 using Pds.DocumentExchange.Data.Services.DTOs;
-using Pds.DocumentExchange.Data.Services.DTOs.Configuration;
 using Pds.DocumentExchange.Data.Services.DTOs.FDS;
 using Pds.DocumentExchange.Data.Services.DTOs.SupportTools;
-using Pds.DocumentExchange.Data.Services.Implementations;
+using Pds.DocumentExchange.Data.Services.Interfaces;
 using Pds.DocumentExchange.Data.Services.Mapster.Converters;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,13 +21,9 @@ namespace Pds.DocumentExchange.Data.Api.Mapster
         /// Adds mappings to the TypeAdapterConfig.
         /// </summary>
         /// <param name="config">The TypeAdapter config.</param>
-        public static TypeAdapterConfig Configure(this TypeAdapterConfig config, CosmosDbConfiguration cosmosConfig)
+        /// <param name="fileMetadataUserEncryptor">The file metadata user encryptor.</param>
+        public static TypeAdapterConfig Configure(this TypeAdapterConfig config, IFileMetadataUserEncryptor fileMetadataUserEncryptor)
         {
-            if (cosmosConfig == null)
-            {
-                cosmosConfig = new CosmosDbConfiguration();
-            }
-
             TypeAdapterConfig.GlobalSettings.AllowImplicitSourceInheritance = true;
             config.Default.PreserveReference(true);
             config.Default.EnumMappingStrategy(EnumMappingStrategy.ByName);
@@ -75,7 +70,7 @@ namespace Pds.DocumentExchange.Data.Api.Mapster
             config
                 .ForType<PublishedBatch, Models.SupportTools.PublishedBatch>()
                 .MapWith(source =>
-                    new PublishedBatchConverter(new FileMetadataUserEncryptor(new EncryptionService(), cosmosConfig)).Convert(source));
+                    new PublishedBatchConverter(fileMetadataUserEncryptor).Convert(source));
 
             config
                 .ForType<IEnumerable<Services.DTOs.BatchMetadata>, IEnumerable<Models.SupportTools.PublishedDocument>>()

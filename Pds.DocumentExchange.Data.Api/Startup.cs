@@ -25,7 +25,8 @@ using Pds.DocumentExchange.Data.Api.Validations;
 using Pds.DocumentExchange.Data.Repository.DependencyInjection;
 using Pds.DocumentExchange.Data.Repository.DTOs.Configuration;
 using Pds.DocumentExchange.Data.Services.DependencyInjection;
-using Pds.DocumentExchange.Data.Services.DTOs.Configuration;
+using Pds.DocumentExchange.Data.Services.Interfaces;
+using Pds.DocumentExchange.Data.Services.Mapster;
 using System;
 using System.Threading.Tasks;
 
@@ -79,8 +80,6 @@ namespace Pds.DocumentExchange.Data.Api
             var azureCosmosDbConfig = Configuration.LoadSection<AzureCosmosDbRepositoryConfiguration>("AzureCosmosDb");
             Action<RedisConfiguration> bindRedisConfig = c => Configuration.Bind("Cache:Redis", c);
 
-            var cosmosDbConfig = Configuration.LoadSection<CosmosDbConfiguration>("DocumentExchangeServices:CosmosDb");
-
             services
                 .AddHttpClient()
                 .AddRedisAndMemoryCache(bindRedisConfig)
@@ -90,9 +89,6 @@ namespace Pds.DocumentExchange.Data.Api
                 .AddDocumentExchangeServiceConfiguration(Configuration)
                 .AddAzureADAuthentication(Configuration)
                 .AddDocumentExchangeRepositories(azureCosmosDbConfig)
-
-                .AddSingleton(new TypeAdapterConfig().Configure(cosmosDbConfig))
-                .AddSingleton<IMapper, ServiceMapper>()
                 .AddDocumentExchangeServices(Configuration)
                 .AddValidations()
                 .AddLoggerAdapter()
@@ -104,6 +100,14 @@ namespace Pds.DocumentExchange.Data.Api
                         s.AddRedisBulkJobStorage(
                             options => options.RedisConnectionString = Configuration.GetValue<string>("Cache:Redis:ConnectionString")))
                 .AddHealthChecks();
+
+            services.AddSingleton<TypeAdapterConfig>(service =>
+            {
+                IFileMetadataUserEncryptor fileMetadataUserEncryptor = service.GetService<IFileMetadataUserEncryptor>();
+
+                return new TypeAdapterConfig().Configure(fileMetadataUserEncryptor);
+            })
+            .AddSingleton<IMapper, ServiceMapper>();
 
             services
                 .AddControllers()

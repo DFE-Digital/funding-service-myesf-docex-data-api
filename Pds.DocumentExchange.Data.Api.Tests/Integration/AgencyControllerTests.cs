@@ -36,7 +36,6 @@ namespace Pds.DocumentExchange.Data.Api.Tests.Integration
         public AgencyControllerTests()
         {
             SetupSystemProvider();
-            SetUpConfig();
         }
 
         private FilesInTeamShareScenario _filesInTeamSharePopulator = new FilesInTeamShareScenario();

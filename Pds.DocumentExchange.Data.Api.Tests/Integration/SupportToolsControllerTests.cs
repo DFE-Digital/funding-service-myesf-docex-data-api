@@ -30,7 +30,6 @@ namespace Pds.DocumentExchange.Data.Api.Tests.Integration
     {
         public SupportToolsControllerTests()
         {
-            SetUpConfig();
         }
 
         public void Dispose()
