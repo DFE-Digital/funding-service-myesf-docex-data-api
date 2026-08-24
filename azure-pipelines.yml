@@ -122,7 +122,7 @@ stages:
   # Job 1 - Build and Push to Development ACR
   - job: DockerBuildDev
     displayName: Build and push Docker image for Development
-    condition: or(eq(variables['Build.SourceBranch'], 'refs/heads/main'),  startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix'))
+    condition: or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix'))
     steps:
     # Step 1: Build the Docker image
     - task: Docker@2
