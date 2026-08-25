@@ -13,7 +13,7 @@ namespace Pds.DocumentExchange.Data.Api.Tests.Unit.Mapster
         {
             // arrange
             TypeAdapterConfig config = new TypeAdapterConfig();
-            config.Configure();
+            config.Configure(null);
 
             // act / assert
             TypeAdapterConfig.GlobalSettings.Compile();

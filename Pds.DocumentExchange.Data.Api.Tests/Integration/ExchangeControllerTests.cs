@@ -34,7 +34,6 @@ namespace Pds.DocumentExchange.Data.Api.Tests.Integration
         public ExchangeControllerTests()
         {
             SetupSystemProvider();
-            SetUpConfig();
         }
 
         #region Summary

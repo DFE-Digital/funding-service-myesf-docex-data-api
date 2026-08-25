@@ -45,7 +45,6 @@ namespace Pds.DocumentExchange.Data.Api.Tests.Integration
         public NotificationControllerTests()
         {
             SetupSystemProvider();
-            SetUpConfig();
         }
 
         #region AgencyPublishComplete
