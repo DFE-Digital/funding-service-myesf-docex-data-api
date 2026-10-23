@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Azure.Cosmos.Serialization.HybridRow;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Pds.Core.ApiAuthentication;
 using Pds.Core.BulkJobs;
 using Pds.Core.BulkJobs.Redis;
@@ -92,6 +94,8 @@ namespace Pds.DocumentExchange.Data.Populator
                 services
                     .AddSwaggerGen(options =>
                     {
+                        const string schemeId = JwtBearerDefaults.AuthenticationScheme;
+
                         options.SwaggerDoc(CurrentApiVersion, new OpenApiInfo { Title = AssemblyName, Version = CurrentApiVersion });
                         options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                         {
@@ -101,19 +105,9 @@ namespace Pds.DocumentExchange.Data.Populator
                             Type = SecuritySchemeType.ApiKey,
                             Scheme = "Bearer"
                         });
-                        options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                        options.AddSecurityRequirement(document => new OpenApiSecurityRequirement
                         {
-                            {
-                                new OpenApiSecurityScheme
-                                {
-                                    Reference = new OpenApiReference
-                                    {
-                                        Type = ReferenceType.SecurityScheme,
-                                        Id = "Bearer"
-                                    }
-                                },
-                                Array.Empty<string>()
-                            }
+                              [new OpenApiSecuritySchemeReference(schemeId, document)] = new List<string>()
                         });
                     });
             }

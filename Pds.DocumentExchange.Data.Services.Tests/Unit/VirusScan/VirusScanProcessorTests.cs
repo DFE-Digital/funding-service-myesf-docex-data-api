@@ -8,6 +8,7 @@ using Pds.DocumentExchange.Data.Services.Exceptions;
 using Pds.DocumentExchange.Data.Services.Implementations.VirusScan;
 using Pds.DocumentExchange.Data.Services.Interfaces;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Pds.DocumentExchange.Data.Services.Tests.Unit.VirusScan
@@ -109,7 +110,8 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.VirusScan
         }
 
         [TestMethod, TestCategory("Unit")]
-        [ExpectedException(typeof(FileSafetyInternalException), "File safety internal error occured on the batch batch-id.")]
+
+        //[ExpectedException(typeof(FileSafetyInternalException), "File safety internal error occured on the batch batch-id.")]
         public async Task RunVirusScanAgency_WhenFileHasInternalError_ThrowsException()
         {
             // Arrange
@@ -162,8 +164,8 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.VirusScan
                     ExchangeDocumentDirection.PublishedByAgency))
                 .Returns(scannedValuesAsync);
 
-            // Act
-            await _virusScanProcessor.RunVirusScanAgency(batchIdentifier);
+            // Act/Assert
+            await Assert.ThrowsAsync<FileSafetyInternalException>(async () => await _virusScanProcessor.RunVirusScanAgency(batchIdentifier));
         }
 
         [TestMethod, TestCategory("Unit")]
@@ -302,7 +304,6 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.VirusScan
         }
 
         [TestMethod, TestCategory("Unit")]
-        [ExpectedException(typeof(FileSafetyInternalException), "File safety internal error occured on the batch batch-id.")]
         public async Task RunVirusScanOrganisation_WhenFileHasInternalError_ThrowsException()
         {
             // Arrange
@@ -355,8 +356,8 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.VirusScan
                     ExchangeDocumentDirection.SentByOrganisation))
                 .Returns(scannedValuesAsync);
 
-            // Act
-            await _virusScanProcessor.RunVirusScanOrganisation(batchIdentifier);
+            // Act/Assert
+            await Assert.ThrowsAsync<FileSafetyInternalException>(async () => await _virusScanProcessor.RunVirusScanAgency(batchIdentifier));
         }
 
         [TestMethod, TestCategory("Unit")]

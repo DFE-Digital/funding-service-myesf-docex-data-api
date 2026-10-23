@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsNotAsErrors>NU1901;NU1902;NU1903;NU1904;S1135</WarningsNotAsErrors>
   </PropertyGroup>
@@ -108,29 +108,31 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BouncyCastle.NetCore" Version="1.8.8" />
-    <PackageReference Include="CsvHelper" Version="32.0.3" />
+    <PackageReference Include="BouncyCastle.NetCore" Version="2.2.1" />
+    <PackageReference Include="CsvHelper" Version="33.1.0" />
     <PackageReference Include="FreeDataExports" Version="1.1.12" />
-    <PackageReference Include="Mapster" Version="10.0.11" />
-    <PackageReference Include="Mapster.DependencyInjection" Version="10.0.11" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
+    <PackageReference Include="Mapster" Version="10.0.13" />
+    <PackageReference Include="Mapster.DependencyInjection" Version="10.0.13" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection" Version="10.0.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.13" />
     <PackageReference Include="Microsoft.Azure.ServiceBus" Version="5.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />
-    <PackageReference Include="nClam" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.13" />
+    <PackageReference Include="nClam" Version="9.0.0" />
     <PackageReference Include="Pds.Core.BulkJobs" Version="4.0.0" />
     <PackageReference Include="Pds.Core.Common" Version="2.0.0" />
     <PackageReference Include="Pds.Core.DfESignIn.ImplicitFlow" Version="5.0.2" />
     <PackageReference Include="Pds.Core.Notification" Version="2.1.0" />
     <PackageReference Include="Pds.Core.Caching" Version="4.0.0" />
     <PackageReference Include="Pds.Core.DistributedLocks" Version="2.0.0" />
-    <PackageReference Include="System.Linq.Async" Version="6.0.3" />
+    <PackageReference Include="System.Linq.Async" Version="7.0.1" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.13" />
     <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
 	<PackageReference Include="SonarAnalyzer.CSharp" Version="8.18.0.27296">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Pds.Core.CodeAnalysis.StyleCop" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.13" />
     <PackageReference Include="Pds.Services.Common" Version="2.0.1" />
   </ItemGroup>
 

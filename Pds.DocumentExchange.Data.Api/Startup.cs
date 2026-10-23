@@ -7,7 +7,7 @@ using Microsoft.Azure.Cosmos.Fluent;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Pds.Core.ApiAuthentication;
 using Pds.Core.BulkJobs;
 using Pds.Core.BulkJobs.Redis;
