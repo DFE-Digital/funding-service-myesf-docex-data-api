@@ -357,7 +357,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.VirusScan
                 .Returns(scannedValuesAsync);
 
             // Act/Assert
-            await Assert.ThrowsAsync<FileSafetyInternalException>(async () => await _virusScanProcessor.RunVirusScanAgency(batchIdentifier));
+            await Assert.ThrowsAsync<FileSafetyInternalException>(async () => await _virusScanProcessor.RunVirusScanOrganisation(batchIdentifier));
         }
 
         [TestMethod, TestCategory("Unit")]
