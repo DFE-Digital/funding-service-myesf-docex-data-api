@@ -110,8 +110,6 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.VirusScan
         }
 
         [TestMethod, TestCategory("Unit")]
-
-        //[ExpectedException(typeof(FileSafetyInternalException), "File safety internal error occured on the batch batch-id.")]
         public async Task RunVirusScanAgency_WhenFileHasInternalError_ThrowsException()
         {
             // Arrange
