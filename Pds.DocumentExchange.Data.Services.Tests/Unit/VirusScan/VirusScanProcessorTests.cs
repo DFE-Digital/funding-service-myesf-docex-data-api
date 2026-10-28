@@ -163,7 +163,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.VirusScan
                 .Returns(scannedValuesAsync);
 
             // Act/Assert
-            await Assert.ThrowsAsync<FileSafetyInternalException>(async () => await _virusScanProcessor.RunVirusScanAgency(batchIdentifier));
+            await Assert.ThrowsAsync<FileSafetyInternalException>(async () => await _virusScanProcessor.RunVirusScanAgency(batchIdentifier), "File safety internal error occured on the batch batch-id.");
         }
 
         [TestMethod, TestCategory("Unit")]
@@ -355,7 +355,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.VirusScan
                 .Returns(scannedValuesAsync);
 
             // Act/Assert
-            await Assert.ThrowsAsync<FileSafetyInternalException>(async () => await _virusScanProcessor.RunVirusScanOrganisation(batchIdentifier));
+            await Assert.ThrowsAsync<FileSafetyInternalException>(async () => await _virusScanProcessor.RunVirusScanOrganisation(batchIdentifier), "File safety internal error occured on the batch batch-id.");
         }
 
         [TestMethod, TestCategory("Unit")]

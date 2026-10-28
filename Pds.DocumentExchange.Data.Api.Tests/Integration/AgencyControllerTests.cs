@@ -772,7 +772,6 @@ namespace Pds.DocumentExchange.Data.Api.Tests.Integration
             Mock.Get(DateTimeProvider)
                 .Setup(dtp => dtp.UtcNow())
                 .Returns(DateTime.UtcNow);
-            var test = MockConfig["ServiceBusConnectionString"];
 
             Mock.Get(QueueManager)
                 .Setup(qm => qm.GetQueue("virusscanrequired"))
