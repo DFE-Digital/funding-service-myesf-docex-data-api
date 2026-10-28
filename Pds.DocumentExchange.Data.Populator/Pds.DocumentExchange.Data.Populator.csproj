@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsNotAsErrors>NU1901;NU1902;NU1903;NU1904;S1135</WarningsNotAsErrors>
-	<LangVersion>9.0</LangVersion>
+	<LangVersion>12.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -74,14 +74,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Storage.Files.Shares" Version="12.22.0" />
-    <PackageReference Include="CsvHelper" Version="32.0.3" />
-    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.52.1" />
+    <PackageReference Include="Azure.Storage.Files.Shares" Version="12.28.0" />
+    <PackageReference Include="CsvHelper" Version="33.1.0" />
+    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.63.2" />
     <PackageReference Include="Pds.Core.ApiAuthentication" Version="2.0.2" />
     <PackageReference Include="Pds.Core.BulkJobs.Redis" Version="2.0.0" />
     <PackageReference Include="Pds.Core.CodeAnalysis.StyleCop" Version="2.0.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3" />
-    <PackageReference Include="System.Security.Cryptography.Xml" Version="8.0.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.3.1" />
+    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.13" />
   </ItemGroup>
 
   <ItemGroup>

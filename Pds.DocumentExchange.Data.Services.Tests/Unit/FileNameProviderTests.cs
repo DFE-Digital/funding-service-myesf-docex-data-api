@@ -221,7 +221,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit
                 originalFileName);
 
             // Assert
-            Assert.AreEqual(actualFileName, expectedFileName);
+            Assert.AreEqual(expectedFileName, actualFileName);
         }
 
         [TestMethod, TestCategory("Unit")]

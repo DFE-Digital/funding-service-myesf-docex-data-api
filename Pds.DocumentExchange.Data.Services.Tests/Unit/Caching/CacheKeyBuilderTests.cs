@@ -11,7 +11,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Caching
     [TestClass]
     public class CacheKeyBuilderTests
     {
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(BuildAgencyTeamFileShareKeyTestData))]
         public void BuildAgencyTeamFileShareKey_ReturnsExpectedKey(string team, string expectedKey)
         {
@@ -25,7 +25,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Caching
             actual.Should().Be(expectedKey);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(BuildAgencyTeamExchangedDocumentsKeyTestData))]
         public void BuildAgencyTeamExchangedDocumentsKey_ReturnsExpectedKey(string team, ExchangeDocumentDirection direction, string expectedKey)
         {
@@ -39,7 +39,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Caching
             actual.Should().Be(expectedKey);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(BuildAgencyDocumentValidationKeyTestData))]
         public void BuildAgencyDocumentValidationKey_ReturnsExpectedKey(string team, string fileName, string expectedKey)
         {
@@ -53,7 +53,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Caching
             actual.Should().Be(expectedKey);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(BuildOrganisationExchangedDocumentsKeyTestData))]
         public void BuildOrganisationExchangedDocumentsKey_ReturnsExpectedKey(OrganisationIdentifier organisationIdentifier, ExchangeDocumentDirection direction, string expectedKey)
         {
@@ -67,7 +67,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Caching
             actual.Should().Be(expectedKey);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(BuildConfigurationKeyTestData))]
         public void BuildConfigurationKey_ReturnsExpectedKey(ConfigurationSection section, string expectedKey)
         {
@@ -81,7 +81,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Caching
             actual.Should().Be(expectedKey);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(BuildListConfigurationKeyTestData))]
         public void BuildListConfigurationKey_ReturnsExpectedKey(ConfigurationSection section, string expectedKey)
         {
@@ -95,7 +95,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Caching
             actual.Should().Be(expectedKey);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         [DynamicData(nameof(BuildEmailResourceLockKeyTestData))]
         public void BuildEmailResourceLockKey_ReturnsExpectedKey(string parentBatchId, string expectedKey)
         {

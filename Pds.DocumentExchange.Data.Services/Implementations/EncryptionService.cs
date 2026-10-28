@@ -77,8 +77,7 @@ namespace Pds.DocumentExchange.Data.Services.Implementations
         /// <returns>The resultant encrypted/decrypted output bytes.</returns>
         private static byte[] PerformCipherProcessing(bool encryptionFlag, string passPhrase, byte[] saltStringBytes, byte[] ivStringBytes, byte[] inputBytes)
         {
-            using var password = new Rfc2898DeriveBytes(passPhrase, saltStringBytes, DerivationIterations, HashAlgorithmName.SHA1);
-            var keyBytes = password.GetBytes(KeySize / 8);
+            var keyBytes = Rfc2898DeriveBytes.Pbkdf2(passPhrase, saltStringBytes, DerivationIterations, HashAlgorithmName.SHA1, 32);
             var engine = new RijndaelEngine(256);
             var blockCipher = new CbcBlockCipher(engine);
             var cipher = new PaddedBufferedBlockCipher(blockCipher, new Pkcs7Padding());

@@ -35,7 +35,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Factories
             var encryptionKey = MakeStrictMock<CosmosDbConfiguration>();
 
             // act / assert
-            Assert.ThrowsException<ArgumentNullException>(() => new BatchMetadataAnalysisFactory(null, encryptor, configuration, encryptionKey, _mockLoggingService.Object));
+            Assert.Throws<ArgumentNullException>(() => new BatchMetadataAnalysisFactory(null, encryptor, configuration, encryptionKey, _mockLoggingService.Object));
         }
 
         [TestMethod]
@@ -47,7 +47,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Factories
             var encryptionKey = MakeStrictMock<CosmosDbConfiguration>();
 
             // act / assert
-            Assert.ThrowsException<ArgumentNullException>(() => new BatchMetadataAnalysisFactory(docStore, null, configuration, encryptionKey, _mockLoggingService.Object));
+            Assert.Throws<ArgumentNullException>(() => new BatchMetadataAnalysisFactory(docStore, null, configuration, encryptionKey, _mockLoggingService.Object));
         }
 
         [TestMethod]
@@ -59,7 +59,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Factories
             var encryptionKey = MakeStrictMock<CosmosDbConfiguration>();
 
             // act / assert
-            Assert.ThrowsException<ArgumentNullException>(() => new BatchMetadataAnalysisFactory(docStore, encryptor, null, encryptionKey, _mockLoggingService.Object));
+            Assert.Throws<ArgumentNullException>(() => new BatchMetadataAnalysisFactory(docStore, encryptor, null, encryptionKey, _mockLoggingService.Object));
         }
 
         [TestMethod]
@@ -71,7 +71,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Factories
             var configuration = MakeStrictMock<IConfigurationDataService>();
 
             // act / assert
-            Assert.ThrowsException<ArgumentNullException>(() => new BatchMetadataAnalysisFactory(docStore, encryptor, configuration, null, _mockLoggingService.Object));
+            Assert.Throws<ArgumentNullException>(() => new BatchMetadataAnalysisFactory(docStore, encryptor, configuration, null, _mockLoggingService.Object));
         }
 
         [TestMethod]
@@ -134,7 +134,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Factories
                 .Returns(Task.FromResult(MakeEnumerableItems<Product>(0)));
 
             // act / assert
-            await Assert.ThrowsExceptionAsync<BatchAnalysisNoUploaderException>(() => sut.Create(batches, TestBatchID));
+            await Assert.ThrowsAsync<BatchAnalysisNoUploaderException>(() => sut.Create(batches, TestBatchID));
         }
 
         [TestMethod]
@@ -166,7 +166,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Factories
                 .Returns(emailAddress);
 
             // act / assert
-            await Assert.ThrowsExceptionAsync<BatchAnalysisBatchEmptyException>(() => sut.Create(batches, TestBatchID));
+            await Assert.ThrowsAsync<BatchAnalysisBatchEmptyException>(() => sut.Create(batches, TestBatchID));
         }
 
         [TestMethod]
@@ -199,7 +199,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Factories
                 .Returns(emailAddress);
 
             // act / assert
-            await Assert.ThrowsExceptionAsync<BatchAnalysisOrgCardinalityMismatchException>(() => sut.Create(batches, TestBatchID));
+            await Assert.ThrowsAsync<BatchAnalysisOrgCardinalityMismatchException>(() => sut.Create(batches, TestBatchID));
         }
 
         [TestMethod]
@@ -234,7 +234,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Factories
                 .Returns(emailAddress);
 
             // act / assert
-            await Assert.ThrowsExceptionAsync<BatchAnalysisOrgCardinalityMismatchException>(() => sut.Create(batches, TestBatchID));
+            await Assert.ThrowsAsync<BatchAnalysisOrgCardinalityMismatchException>(() => sut.Create(batches, TestBatchID));
         }
 
         [TestMethod]
