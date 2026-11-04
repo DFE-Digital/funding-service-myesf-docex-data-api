@@ -30,7 +30,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Builders
             var configurationDataService = MakeStrictMock<IConfigurationDataService>();
 
             // act / assert
-            Assert.ThrowsException<ArgumentNullException>(() => new NotificationMessageBuilder(null, headerFactory, bodyFactory, messageFactory, configurationDataService));
+            Assert.Throws<ArgumentNullException>(() => new NotificationMessageBuilder(null, headerFactory, bodyFactory, messageFactory, configurationDataService));
         }
 
         [TestMethod]
@@ -43,7 +43,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Builders
             var configurationDataService = MakeStrictMock<IConfigurationDataService>();
 
             // act / assert
-            Assert.ThrowsException<ArgumentNullException>(() => new NotificationMessageBuilder(templateProvider, null, bodyFactory, messageFactory, configurationDataService));
+            Assert.Throws<ArgumentNullException>(() => new NotificationMessageBuilder(templateProvider, null, bodyFactory, messageFactory, configurationDataService));
         }
 
         [TestMethod]
@@ -56,7 +56,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Builders
             var configurationDataService = MakeStrictMock<IConfigurationDataService>();
 
             // act / assert
-            Assert.ThrowsException<ArgumentNullException>(() => new NotificationMessageBuilder(templateProvider, headerFactory, null, messageFactory, configurationDataService));
+            Assert.Throws<ArgumentNullException>(() => new NotificationMessageBuilder(templateProvider, headerFactory, null, messageFactory, configurationDataService));
         }
 
         [TestMethod]
@@ -69,7 +69,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Builders
             var configurationDataService = MakeStrictMock<IConfigurationDataService>();
 
             // act / assert
-            Assert.ThrowsException<ArgumentNullException>(() => new NotificationMessageBuilder(templateProvider, headerFactory, bodyFactory, null, configurationDataService));
+            Assert.Throws<ArgumentNullException>(() => new NotificationMessageBuilder(templateProvider, headerFactory, bodyFactory, null, configurationDataService));
         }
 
         [TestMethod]
@@ -82,7 +82,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Builders
             var messageFactory = MakeStrictMock<ICreateNotificationMessages>();
 
             // act / assert
-            Assert.ThrowsException<ArgumentNullException>(() => new NotificationMessageBuilder(templateProvider, headerFactory, bodyFactory, messageFactory, null));
+            Assert.Throws<ArgumentNullException>(() => new NotificationMessageBuilder(templateProvider, headerFactory, bodyFactory, messageFactory, null));
         }
 
         [TestMethod]

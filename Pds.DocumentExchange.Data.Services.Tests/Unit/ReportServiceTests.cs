@@ -69,7 +69,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit
             _mockCosmosDbService.Setup(x => x.GetMIReport(It.IsAny<DateTime>(), It.IsAny<DateTime>())).Throws<Exception>();
 
             //Assert
-            await Assert.ThrowsExceptionAsync<Exception>(async () => await _reportService.GetMIReport(It.IsAny<DateTime>(), It.IsAny<DateTime>()));
+            await Assert.ThrowsAsync<Exception>(async () => await _reportService.GetMIReport(It.IsAny<DateTime>(), It.IsAny<DateTime>()));
             VerifyMocks();
         }
 

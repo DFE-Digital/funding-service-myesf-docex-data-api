@@ -18,7 +18,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Providers
     {
         [TestMethod]
         public void ConstructorFailsWithNullAssetProvider() =>
-            Assert.ThrowsException<ArgumentNullException>(() => new NotificationMessageBodyTemplateProvider(null));
+            Assert.Throws<ArgumentNullException>(() => new NotificationMessageBodyTemplateProvider(null));
 
         [TestMethod]
         public async Task GetCleanFileTemplateForEmptyCleanFilesThrowsException()
@@ -35,7 +35,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Providers
                 .Returns(MakeReadonlyItems<FileMetadata>(1));
 
             // act / assert
-            await Assert.ThrowsExceptionAsync<MessageBodyTemplateProviderCardinalityException>(() => sut.GetCleanFileTemplateFor(analysis));
+            await Assert.ThrowsAsync<MessageBodyTemplateProviderCardinalityException>(() => sut.GetCleanFileTemplateFor(analysis));
         }
 
         [TestMethod]
@@ -53,7 +53,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Providers
                 .Returns(MakeReadonlyItems<FileMetadata>(0));
 
             // act / assert
-            await Assert.ThrowsExceptionAsync<MessageBodyTemplateProviderCardinalityException>(() => sut.GetInfectedFileTemplateFor(analysis));
+            await Assert.ThrowsAsync<MessageBodyTemplateProviderCardinalityException>(() => sut.GetInfectedFileTemplateFor(analysis));
         }
 
         [TestMethod]
@@ -71,7 +71,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Providers
                 .Returns(MakeReadonlyItems<FileMetadata>(1));
 
             // act / assert
-            await Assert.ThrowsExceptionAsync<MessageBodyTemplateProviderCardinalityException>(() => sut.GetTeamNotificationTemplateFor(analysis));
+            await Assert.ThrowsAsync<MessageBodyTemplateProviderCardinalityException>(() => sut.GetTeamNotificationTemplateFor(analysis));
         }
 
         [TestMethod]
@@ -83,7 +83,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Providers
             var productGroups = MakeReadonlyItems<KeyValuePair<IBatchAnalysisProduct, int>>(0);
 
             // act / assert
-            await Assert.ThrowsExceptionAsync<MessageBodyTemplateProviderCardinalityException>(() => sut.GetDocumentUserMessageTemplateFor(productGroups));
+            await Assert.ThrowsAsync<MessageBodyTemplateProviderCardinalityException>(() => sut.GetDocumentUserMessageTemplateFor(productGroups));
         }
 
         [TestMethod]

@@ -100,7 +100,7 @@ namespace Pds.DocumentExchange.Data.Api.Tests.Unit
                 .ThrowsAsync(It.IsAny<ArgumentNullException>());
 
             //Assert
-            await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () => await _settingsController.ProductsThatOrganisationsCanUpload());
+            await Assert.ThrowsAsync<ArgumentNullException>(async () => await _settingsController.ProductsThatOrganisationsCanUpload());
         }
 
         #endregion
@@ -142,7 +142,7 @@ namespace Pds.DocumentExchange.Data.Api.Tests.Unit
                 .ThrowsAsync(It.IsAny<ArgumentNullException>());
 
             //Assert
-            await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () => await _settingsController.GetProducts());
+            await Assert.ThrowsAsync<ArgumentNullException>(async () => await _settingsController.GetProducts());
         }
 
         [TestMethod]
@@ -215,7 +215,7 @@ namespace Pds.DocumentExchange.Data.Api.Tests.Unit
                 .ThrowsAsync(It.IsAny<ArgumentNullException>());
 
             //Assert
-            await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () => await _settingsController.GetProduct(It.IsAny<int>()));
+            await Assert.ThrowsAsync<ArgumentNullException>(async () => await _settingsController.GetProduct(It.IsAny<int>()));
         }
 
         [TestMethod]
@@ -354,7 +354,7 @@ namespace Pds.DocumentExchange.Data.Api.Tests.Unit
                 .ThrowsAsync(It.IsAny<ArgumentNullException>());
 
             //Assert
-            await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () => await _settingsController.GetTeams());
+            await Assert.ThrowsAsync<ArgumentNullException>(async () => await _settingsController.GetTeams());
         }
 
         [TestMethod]
@@ -417,7 +417,7 @@ namespace Pds.DocumentExchange.Data.Api.Tests.Unit
                 .ThrowsAsync(It.IsAny<ArgumentNullException>());
 
             //Assert
-            await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () => await _settingsController.AddOrUpdateTeam(It.IsAny<string>(), It.IsAny<AgencyTeam>()));
+            await Assert.ThrowsAsync<ArgumentNullException>(async () => await _settingsController.AddOrUpdateTeam(It.IsAny<string>(), It.IsAny<AgencyTeam>()));
         }
 
         #endregion
@@ -743,9 +743,9 @@ namespace Pds.DocumentExchange.Data.Api.Tests.Unit
 
 
         #region GetMaxFileUploadSize
-
-        [DataRow(true)]
-        [DataRow(false)]
+        [TestMethod]
+        [DataRow(1)]
+        [DataRow(100)]
         public async Task GetMaxFileUploadSize_ReturnsTheSettingValue(int expectedValue)
         {
             // Arrange

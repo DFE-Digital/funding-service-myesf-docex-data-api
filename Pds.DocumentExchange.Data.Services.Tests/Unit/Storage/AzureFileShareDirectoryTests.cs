@@ -179,7 +179,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Storage
             Task FileExistsTask() => _azureFileShareDirectory.FileExists(fileName);
 
             //Assert
-            var result = await Assert.ThrowsExceptionAsync<Exception>(FileExistsTask);
+            var result = await Assert.ThrowsAsync<Exception>(FileExistsTask);
             result.Message.Should().Be(fileName);
         }
 

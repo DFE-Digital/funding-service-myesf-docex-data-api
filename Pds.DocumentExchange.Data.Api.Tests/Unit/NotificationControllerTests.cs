@@ -56,7 +56,7 @@ namespace Pds.DocumentExchange.Data.Api.Tests.Unit
                 .ThrowsAsync(It.IsAny<ArgumentNullException>());
 
             // Assert
-            await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () => await _notificationController.AgencyPublishComplete("test"));
+            await Assert.ThrowsAsync<ArgumentNullException>(async () => await _notificationController.AgencyPublishComplete("test"));
         }
 
         [TestMethod]
@@ -81,7 +81,7 @@ namespace Pds.DocumentExchange.Data.Api.Tests.Unit
                 .ThrowsAsync(It.IsAny<ArgumentNullException>());
 
             // Assert
-            await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () => await _notificationController.OrganisationUploadComplete("test"));
+            await Assert.ThrowsAsync<ArgumentNullException>(async () => await _notificationController.OrganisationUploadComplete("test"));
         }
     }
 }

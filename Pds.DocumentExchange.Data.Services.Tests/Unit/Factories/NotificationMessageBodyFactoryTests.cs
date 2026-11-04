@@ -35,7 +35,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Factories
             var mockLoggingService = MakeLooseMock<ILoggerAdapter<NotificationMessageBodyFactory>>();
 
             // act / assert
-            Assert.ThrowsException<ArgumentNullException>(
+            Assert.Throws<ArgumentNullException>(
                     () => new NotificationMessageBodyFactory(null, organisationLookup, configurationDataService, config, mockLoggingService));
         }
 
@@ -49,7 +49,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Factories
             var mockLoggingService = MakeLooseMock<ILoggerAdapter<NotificationMessageBodyFactory>>();
 
             // act / assert
-            Assert.ThrowsException<ArgumentNullException>(
+            Assert.Throws<ArgumentNullException>(
                 () => new NotificationMessageBodyFactory(formatter, null, configurationDataService, config, mockLoggingService));
         }
 
@@ -63,7 +63,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Factories
             var mockLoggingService = MakeLooseMock<ILoggerAdapter<NotificationMessageBodyFactory>>();
 
             // act / assert
-            Assert.ThrowsException<ArgumentNullException>(
+            Assert.Throws<ArgumentNullException>(
                 () => new NotificationMessageBodyFactory(formatter, organisationLookup, null, config, mockLoggingService));
         }
 
@@ -77,7 +77,7 @@ namespace Pds.DocumentExchange.Data.Services.Tests.Unit.Factories
             var mockLoggingService = MakeLooseMock<ILoggerAdapter<NotificationMessageBodyFactory>>();
 
             // act / assert
-            Assert.ThrowsException<ArgumentNullException>(
+            Assert.Throws<ArgumentNullException>(
                 () => new NotificationMessageBodyFactory(formatter, organisationLookup, configurationDataService, null, mockLoggingService));
         }
 
